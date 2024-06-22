@@ -1,13 +1,84 @@
-
+import { useState, useEffect } from 'react';
 import star from '../assets/star.svg'
 import maximize from '../assets/maximize.svg'
 import formula from '../assets/formula.svg'
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
+import { createChart, ColorType, CrosshairMode } from "lightweight-charts";
+import axios from 'axios';
+import { setCoins } from '../feature/coin/coinSlice';
+
 
 export default function CoinInfoUp() {
 
-    const currCoin = useSelector((state: RootState) => state.coin.currCoin);
+    const base_url = import.meta.env.VITE_BASE_URL || "http://localhost:5000/";
+
+    const currCoin: any = useSelector((state: RootState) => state.coin.currCoin);
+
+    useEffect(() => {
+        if (currCoin.name) {
+            const chartOptions = {
+                layout: { textColor: '#9EB1BF', background: { type: ColorType.Solid, color: '#1E2433' } }, grid: {
+                    vertLines: { color: '#2C3240' },
+                    horzLines: { color: '#2C3240' },
+                },
+            };
+            const body = document.getElementById("container")
+            if (body) {
+                body.innerHTML = ""
+                const chart = createChart(body, chartOptions);
+                const candlestickSeries = chart.addCandlestickSeries({ upColor: '#66C37B', downColor: '#F6685E', borderVisible: false, wickUpColor: '#66C37B', wickDownColor: '#F6685E' });
+
+                candlestickSeries.setData(currCoin.data);
+
+                chart.priceScale("right").applyOptions({
+                    borderColor: '#818898',
+                });
+
+                chart.timeScale().applyOptions({
+                    borderColor: '#818898',
+                });
+
+                chart.applyOptions({
+                    crosshair: {
+                        mode: CrosshairMode.Normal,
+                        vertLine: {
+                            color: '#9EB1BF',
+                            labelBackgroundColor: '#4B4F57',
+                        },
+                        horzLine: {
+                            color: '#9EB1BF',
+                            labelBackgroundColor: '#4B4F57',
+                        },
+                    },
+                });
+
+
+
+                setInterval(async () => {
+                    axios.get(base_url + 'coins')
+                    .then((res) => res.data.find(obj => obj._id === currCoin._id))
+                    .then((res) => res.data[res.data.length - 1])
+                    .then((res) => candlestickSeries.update(res))
+                }, 10000)
+
+                chart.timeScale().scrollToPosition(5, true)
+                chart.timeScale().applyOptions({ timeVisible: true })
+
+            }
+        }
+    }, [currCoin])
+
+    let lastPrice: number = 0;
+    let highPrice: number = 0;
+    let lowPrice: number = 0;
+    let openPrice: number = 0;
+    if (currCoin.name) {
+        lastPrice = currCoin.data[currCoin.data.length - 1].close
+        highPrice = currCoin.data[currCoin.data.length - 1].high
+        lowPrice = currCoin.data[currCoin.data.length - 1].low
+        openPrice = currCoin.data[currCoin.data.length - 1].open
+    }
 
     return (
         <div className="bg-white dark:bg-[#1E2433] h-[60%] mb-1 rounded
@@ -15,14 +86,14 @@ export default function CoinInfoUp() {
             <div className="flex justify-between p-1 pl-4 h-8 border-b-2 border-[#2D3446] cursor-pointer">
                 <div className="flex">
                     <div className="flex">
-                        <div className="font-bold text-sm">THC/INR</div>
-                        <div className="text-sm text-[#9EB1BF] pl-1">Thiscoin</div>
+                        <div className="font-bold text-sm">{currCoin.name}/INR</div>
+                        <div className="text-sm text-[#9EB1BF] pl-1">{currCoin.name}</div>
                     </div>
                 </div>
                 <div className="flex pr-1">
                     <div className="flex pr-4">
                         <div className="text-sm text-[#9EB1BF] pr-2">LAST PRICE</div>
-                        <div className="font-bold text-sm">$4500.00</div>
+                        <div className="font-bold text-sm">${lastPrice}</div>
                     </div>
                     <div className='flex'>
                         <img src={star} alt="Logo" className='w-[15px]' />
@@ -45,16 +116,16 @@ export default function CoinInfoUp() {
                 </div>
                 <div className="flex pr-1 justify-center items-center">
                     <div className="flex pr-4 gap-2">
-                        <div className="text-[11px] text-[#9EB1BF]">VOLUME</div>
-                        <div className="font-semibold text-[11px]">1.94749</div>
+                        <div className="text-[11px] text-[#9EB1BF]">OPEN</div>
+                        <div className="font-semibold text-[11px]">{openPrice}</div>
                         <div className="text-[11px] text-[#9EB1BF]">HIGH</div>
-                        <div className="font-semibold text-[11px]">5,885,140</div>
+                        <div className="font-semibold text-[11px]">{highPrice}</div>
                         <div className="text-[11px] text-[#9EB1BF]">LOW</div>
-                        <div className="font-semibold text-[11px]">5,746,101</div>
+                        <div className="font-semibold text-[11px]">{lowPrice}</div>
                     </div>
                     <div className='flex gap-4'>
                         <div className='border-l-2 cursor-pointer border-[#2D3446] flex justify-center items-center w-6'>
-                            <img src={formula} alt="Logo" className='w-[15px]'/>
+                            <img src={formula} alt="Logo" className='w-[15px]' />
                         </div>
                         <div className='border-l-2 cursor-pointer border-[#2D3446] flex justify-center items-center w-6'>
                             <img src={maximize} alt="Logo" className='w-[15px]' />
@@ -62,7 +133,12 @@ export default function CoinInfoUp() {
                     </div>
                 </div>
             </div>
-            <div>{currCoin.name}</div>
+            <div id='container' className='w-full h-full flex justify-center items-center cursor-crosshair'>
+            </div>
         </div>
     )
+}
+
+function dispatch(arg0: any): any {
+    throw new Error('Function not implemented.');
 }

@@ -18,7 +18,13 @@ export default function Coinlist() {
         axios.get(base_url + 'coins')
             .then((res) => dispatch(setCoins(res.data)))
             .then(() => console.log("All coins loaded"))
-            .catch((err) => {console.error('Failed to fetch coins:', err)})
+            .catch((err) => { console.error('Failed to fetch coins:', err) })
+
+        const interval = setInterval(() => {
+            axios.get(base_url + 'coins')
+            .then((res) => dispatch(setCoins(res.data)))
+        }, 60000);
+        return () => clearInterval(interval);
     }, [])
 
 
