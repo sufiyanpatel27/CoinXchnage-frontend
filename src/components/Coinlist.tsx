@@ -1,14 +1,28 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../app/store';
+import { setCoins, setCurrCoin } from '../feature/coin/coinSlice';
 import up from '../assets/up.svg'
 import down from '../assets/down.svg'
 
 export default function Coinlist() {
 
-    const [allCoins, setAllCoins] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
-
     const base_url = import.meta.env.VITE_BASE_URL || "http://localhost:5000/";
+
+    const dispatch = useDispatch<AppDispatch>();
+    const allCoins = useSelector((state: RootState) => state.coin.allCoins);
+
+    useEffect(() => {
+        console.log("loading coins")
+        axios.get(base_url + 'coins')
+            .then((res) => dispatch(setCoins(res.data)))
+            .then(() => console.log("All coins loaded"))
+            .catch((err) => {console.error('Failed to fetch coins:', err)})
+    }, [])
+
+
+    const [searchTerm, setSearchTerm] = useState('');
 
     interface dataObject {
         open: number;
@@ -20,14 +34,13 @@ export default function Coinlist() {
         name: string;
         data: Array<dataObject>;
     }
-    
 
-    useEffect(() => {
-        console.log("loading coins")
-        axios.get(base_url + 'coins')
-            .then((res) => setAllCoins(res.data))
-            .then(() => console.log("All coins loaded"))
-    }, [])
+    const handleCoinSelect = (coin: Coin) => {
+        dispatch(setCurrCoin(coin))
+    }
+
+
+
 
 
     return (
@@ -70,7 +83,7 @@ export default function Coinlist() {
                     <div className="w-full text-[10px] font-semibold cursor-pointer text-[#9EB1BF] flex justify-end">Change</div>
                 </div>
                 {allCoins.map((coin: Coin) => (
-                    <div className="h-12 flex justify-between items-center border-b-2 px-4 border-[#2D3446] cursor-pointer hover:bg-[#212f57]">
+                    <div onClick={() => handleCoinSelect(coin)} className="h-12 flex justify-between items-center border-b-2 px-4 border-[#2D3446] cursor-pointer hover:bg-[#212f57]">
                         <div className="flex justify-center items-center">
                             <div className="mr-1 font-serif w-4 h-4 text-sm ">{coin.name[0]}</div>
                             <div>

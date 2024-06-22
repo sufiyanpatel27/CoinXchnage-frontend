@@ -2,8 +2,13 @@
 import star from '../assets/star.svg'
 import maximize from '../assets/maximize.svg'
 import formula from '../assets/formula.svg'
+import { useSelector } from 'react-redux';
+import { RootState } from '../app/store';
 
 export default function CoinInfoUp() {
+
+    const currCoin = useSelector((state: RootState) => state.coin.currCoin);
+
     return (
         <div className="bg-white dark:bg-[#1E2433] h-[60%] mb-1 rounded
             flex flex-col">
@@ -57,7 +62,7 @@ export default function CoinInfoUp() {
                     </div>
                 </div>
             </div>
-            <div>chart</div>
+            <div>{currCoin.name}</div>
         </div>
     )
 }
