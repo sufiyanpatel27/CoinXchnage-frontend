@@ -26,6 +26,7 @@ export default function CoinInfoUp() {
             const body = document.getElementById("container")
             if (body) {
                 body.innerHTML = ""
+
                 const chart = createChart(body, chartOptions);
                 const candlestickSeries = chart.addCandlestickSeries({ upColor: '#66C37B', downColor: '#F6685E', borderVisible: false, wickUpColor: '#66C37B', wickDownColor: '#F6685E' });
 
@@ -54,12 +55,58 @@ export default function CoinInfoUp() {
                 });
 
 
+                let symbolName = currCoin.name + " / INR"
+                let timeFrame = "1M"
+                let open = currCoin.data[currCoin.data.length - 1].open
+                let high = currCoin.data[currCoin.data.length - 1].high
+                let low = currCoin.data[currCoin.data.length - 1].low
+                let close = currCoin.data[currCoin.data.length - 1].close
+                let currCoinData = `O: ${open} H: ${high} L: ${low} C: ${close}`;
+
+                const legend = document.createElement('div');
+                legend.style = `color: #9EB1BF; display: flex; position: absolute; left: 12px; top: 12px; z-index: 1; font-size: 14px; font-family: sans-serif; line-height: 18px; font-weight: 300;`;
+                body.appendChild(legend);
+
+                const firstRow = document.createElement('div');
+                firstRow.innerHTML = symbolName;
+                firstRow.style = 'padding-right: 10px; font-weight: bold';
+                legend.appendChild(firstRow);
+
+                const secondElement = document.createElement('div');
+                secondElement.innerHTML = timeFrame;
+                secondElement.style = 'padding-right: 10px';
+                legend.appendChild(secondElement);
+
+                const thirdElement = document.createElement('div');
+                thirdElement.innerHTML = currCoinData;
+                thirdElement.style = '';
+                legend.appendChild(thirdElement);
+
+                chart.subscribeCrosshairMove(param => {
+                    let open = currCoin.data[currCoin.data.length - 1].open
+                    let high = currCoin.data[currCoin.data.length - 1].high
+                    let low = currCoin.data[currCoin.data.length - 1].low
+                    let close = currCoin.data[currCoin.data.length - 1].close
+                    if (param.time) {
+                        param.seriesData.forEach((value) => {
+                            open = value.open;
+                            high = value.high;
+                            low = value.low;
+                            close = value.close;
+                        })
+                    }
+                    firstRow.innerHTML = `${symbolName}`;
+                    secondElement.innerHTML = `${timeFrame}`
+                    thirdElement.innerHTML = `O: ${open} H: ${high} L: ${low} C: ${close}`
+                });
+
+
 
                 setInterval(async () => {
                     axios.get(base_url + 'coins')
-                    .then((res) => res.data.find(obj => obj._id === currCoin._id))
-                    .then((res) => res.data[res.data.length - 1])
-                    .then((res) => candlestickSeries.update(res))
+                        .then((res) => res.data.find((obj: { _id: any; }) => obj._id === currCoin._id))
+                        .then((res) => res.data[res.data.length - 1])
+                        .then((res) => candlestickSeries.update(res))
                 }, 10000)
 
                 chart.timeScale().scrollToPosition(5, true)
@@ -133,7 +180,7 @@ export default function CoinInfoUp() {
                     </div>
                 </div>
             </div>
-            <div id='container' className='w-full h-full flex justify-center items-center cursor-crosshair'>
+            <div id='container' className='w-full relative h-full flex justify-center items-center cursor-crosshair'>
             </div>
         </div>
     )
