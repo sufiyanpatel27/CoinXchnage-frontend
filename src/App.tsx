@@ -2,6 +2,8 @@ import { useState } from 'react'
 import Navbar from './components/Navbar'
 import Coinlist from './components/Coinlist'
 import CoinInfoUp from './components/CoinInfoUp'
+import CoininfoDown from './components/CoininfoDown'
+import TradeInfo from './components/TradeInfo'
 
 export default function App() {
 
@@ -18,9 +20,9 @@ export default function App() {
           <Coinlist />
           <div className="w-[61%] flex flex-col justify-between m-1">
             <CoinInfoUp />
-            <div className="bg-white dark:bg-[#1E2433] h-[40%] mt-1 rounded">middle col lower</div>
+            <CoininfoDown />
           </div>
-          <div className="bg-white dark:bg-[#1E2433] w-[23%] mr-2 m-1 rounded">right col</div>
+          <TradeInfo />
         </div>
       </div>
     </div>
