@@ -1,7 +1,14 @@
 import { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
+import Navbar from './Navbar';
+import google from '../assets/google.svg'
+import github from '../assets/github.svg'
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
+
+  let navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { signUp } = useAuth();
@@ -11,36 +18,45 @@ const SignUp = () => {
     await signUp(email, password);
   };
 
+  const [mode, setMode] = useState(true)
+  const handleTheme = () => {
+    setMode(!mode)
+  }
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
+    <div className={`${mode && "dark"}`}>
+      <div className='h-screen bg-[#F0F2F5] dark:bg-[#101623] text-white flex flex-col'>
+        <Navbar mode={mode} handleTheme={handleTheme} />
+        <div className='w-screen h-screen flex justify-center pt-10'>
+          <div className='bg-gray-800 w-[30%] px-6 py-6 h-[95%]'>
+            <h2 className='font-bold text-2xl'>Sign Up to CoinXChange</h2>
+            <div className='mt-8 bg-[#101623] flex justify-between h-12 rounded-sm'>
+              <button onClick={() => navigate('/signin')} className='w-[50%] my-1 mx-1 mr-1 font-bold text-[#9EB1BF]'>Login</button>
+              <button className='bg-gray-800 w-[50%] my-1 mx-1 ml-1 font-bold rounded-sm'>Sign Up</button>
+            </div>
+            <form onSubmit={handleSubmit}>
+              <div className='mt-6 flex flex-col justify-between gap-4'>
+                <input type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className='bg-[#2D3446] rounded-md p-6 h-10 border-2 border-[#1e2636]' placeholder='Enter your email' />
+                <input type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)} className='bg-[#2D3446] rounded-md p-6 h-10 border-2 border-[#1e2636]' placeholder='Enter your password' />
+                <button type="submit" className='bg-[#3067F0] mt-4 font-bold p-3 rounded-sm'>SIGN UP</button>
+              </div>
+            </form>
+            <h2 className='text-center mt-8 font-semibold text-[#9EB1BF]'>OR</h2>
+            <div className='flex justify-center items-center gap-2 p-2 mt-6 border-[1px] border-gray-700 font-semibold'>
+              <img src={google} alt="Logo" className='w-8' />
+              Continue with Google
+            </div>
+            <div className='flex justify-center items-center gap-2 p-2 mt-4 border-[1px] border-gray-700 font-semibold'>
+              <img src={github} alt="Logo" className='w-8' />
+              Continue with GitHub
+            </div>
           </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Sign Up
-          </button>
-        </form>
+        </div>
       </div>
     </div>
   );
