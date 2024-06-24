@@ -55,7 +55,7 @@ export default function CoinInfoUp() {
                 });
 
 
-                let symbolName = currCoin.name + " / INR"
+                let symbolName = currCoin.symbol + "/INR"
                 let timeFrame = "1M"
                 let open = currCoin.data[currCoin.data.length - 1].open
                 let high = currCoin.data[currCoin.data.length - 1].high
@@ -69,7 +69,7 @@ export default function CoinInfoUp() {
 
                 const firstRow = document.createElement('div');
                 firstRow.innerHTML = symbolName;
-                firstRow.style = 'padding-right: 10px; font-weight: bold';
+                firstRow.style = 'padding-right: 10px; font-weight: semibold';
                 legend.appendChild(firstRow);
 
                 const secondElement = document.createElement('div');
@@ -133,7 +133,7 @@ export default function CoinInfoUp() {
             <div className="flex justify-between p-1 pl-4 h-8 border-b-2 border-[#2D3446] cursor-pointer">
                 <div className="flex">
                     <div className="flex">
-                        <div className="font-bold text-sm">{currCoin.name}/INR</div>
+                        <div className="font-bold text-sm">{currCoin.symbol}/INR</div>
                         <div className="text-sm text-[#9EB1BF] pl-1">{currCoin.name}</div>
                     </div>
                 </div>

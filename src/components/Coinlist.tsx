@@ -91,10 +91,10 @@ export default function Coinlist() {
                 {allCoins.map((coin: Coin) => (
                     <div onClick={() => handleCoinSelect(coin)} className="h-12 flex justify-between items-center border-b-2 px-4 border-[#2D3446] cursor-pointer hover:bg-[#212f57]">
                         <div className="flex justify-center items-center">
-                            <div className="mr-1 font-serif w-4 h-4 text-sm ">{coin.name[0]}</div>
+                            <div className="mr-1 font-serif w-4 h-4 text-sm ">{coin.symbol[0]}</div>
                             <div>
                                 <div className="flex">
-                                    <div className="font-bold text-[12px]">{coin.name}</div>
+                                    <div className="font-bold text-[12px]">{coin.symbol}</div>
                                     <div className="font-semibold text-[12px] text-[#9EB1BF]">/INR</div>
                                 </div>
                                 {Math.round((((coin.data[coin.data.length - 1].close - coin.data[coin.data.length - 2].close) / 2) * 100) * 100) / 100 < 0 && (
