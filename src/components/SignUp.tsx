@@ -15,7 +15,8 @@ const SignUp = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await signUp(email, password);
+    await signUp(email, password)
+    .then(() => navigate("/signin"))
   };
 
   const [mode, setMode] = useState(true)

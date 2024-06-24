@@ -16,7 +16,8 @@ const SignIn = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await signIn(email, password);
+    await signIn(email, password)
+    .then(() => navigate("/"))
   };
 
   const [mode, setMode] = useState(true)
