@@ -11,6 +11,7 @@ import SignIn from './components/SignIn';
 import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
 import { useAuth } from './hooks/useAuth'
+import HomePage from './components/HomePage'
 
 
 const Home = () => {
@@ -32,34 +33,16 @@ const Home = () => {
 
 
 export default function App() {
-
-  const [mode, setMode] = useState(true)
-  const handleTheme = () => {
-    setMode(!mode)
-  }
-
   return (
     <AuthProvider>
       <Router>
         <Routes>
+          <Route path="/exchange" element={<HomePage />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/" element={<PrivateRoute> <Home /> </PrivateRoute>} />
         </Routes>
       </Router>
     </AuthProvider>
-    // <div className={`${mode && "dark"}`}>
-    //   <div className='h-screen bg-[#F0F2F5] dark:bg-[#101623] text-white flex flex-col'>
-    //     <Navbar mode={mode} handleTheme={handleTheme} />
-    //     <div className="flex justify-between h-screen mt-1 text-black dark:text-white">
-    //       <Coinlist />
-    //       <div className="w-[61%] flex flex-col justify-between m-1">
-    //         <CoinInfoUp />
-    //         <CoininfoDown />
-    //       </div>
-    //       <TradeInfo />
-    //     </div>
-    //   </div>
-    // </div>
   );
 }
