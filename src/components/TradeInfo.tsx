@@ -1,11 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../app/store";
 
 
 export default function TradeInfo() {
 
     let navigate = useNavigate();
+
+    const currCoin: any = useSelector((state: RootState) => state.coin.currCoin);
+
+    let coinPrice: number = 0;
+    if (currCoin.name) {
+        coinPrice = currCoin.data[currCoin.data.length - 1].close
+    }
+
+    const [coinAmount, setCoinAmount] = useState(0);
+    const [totalAmount, setTotalAmount] = useState(0);
+
+    const handleCoinAmountChange = (value: any) => {
+        setCoinAmount(value)
+        const rounded = Math.round((value*coinPrice) * 100) / 100;
+        setTotalAmount(rounded)
+    }
+
+    const handleTotalAmountChange = (value: any) => {
+        setTotalAmount(value)
+        const rounded = Math.round((value/coinPrice) * 100) / 100;
+        setCoinAmount(rounded)
+    }
+
+    useEffect(() => {
+        setCoinAmount(0);
+        setTotalAmount(0);
+    }, [currCoin])
 
     const { email } = useAuth();
 
@@ -25,6 +54,8 @@ export default function TradeInfo() {
     const toggleCancel = () => {
         setIsToggledCancel(!isToggledcancel);
     };
+
+    
 
 
 
@@ -134,7 +165,7 @@ export default function TradeInfo() {
                                     <div className="flex items-center w-[50%] ">
                                         <input
                                             type="text"
-                                            value="500000"
+                                            value={coinPrice}
                                             className="bg-[#2D3446] text-white font-bold focus:outline-none w-[90%] px-4 py-2"
                                         />
                                     </div>
@@ -148,8 +179,10 @@ export default function TradeInfo() {
                                     </div>
                                     <div className="flex items-center w-[80%] ">
                                         <input
-                                            type="text"
-                                            value="0.00000"
+                                            type="number"
+                                            value={coinAmount}
+                                            defaultValue={0}
+                                            onChange={(e) => handleCoinAmountChange(e.target.value)}
                                             className="bg-[#2D3446] text-white font-bold focus:outline-none w-[90%] px-4 py-2"
                                         />
                                     </div>
@@ -162,8 +195,9 @@ export default function TradeInfo() {
                                     </div>
                                     <div className="flex items-center w-[80%] ">
                                         <input
-                                            type="text"
-                                            value="0"
+                                            type="number"
+                                            value={totalAmount}
+                                            onChange={(e) => handleTotalAmountChange(e.target.value)}
                                             className="bg-[#2D3446] text-white font-bold focus:outline-none w-[90%] px-4 py-2"
                                         />
                                     </div>
@@ -184,7 +218,7 @@ export default function TradeInfo() {
                                     <div className="flex items-center w-[50%] ">
                                         <input
                                             type="text"
-                                            value="500000"
+                                            value={coinPrice}
                                             className="bg-[#2D3446] text-white font-bold focus:outline-none w-[90%] px-4 py-2"
                                         />
                                     </div>
@@ -198,8 +232,9 @@ export default function TradeInfo() {
                                     </div>
                                     <div className="flex items-center w-[80%] ">
                                         <input
-                                            type="text"
-                                            value="0.00000"
+                                            type="number"
+                                            value={coinAmount}
+                                            onChange={(e) => handleCoinAmountChange(e.target.value)}
                                             className="bg-[#2D3446] text-white font-bold focus:outline-none w-[90%] px-4 py-2"
                                         />
                                     </div>
@@ -212,8 +247,9 @@ export default function TradeInfo() {
                                     </div>
                                     <div className="flex items-center w-[80%] ">
                                         <input
-                                            type="text"
-                                            value="0"
+                                            type="number"
+                                            value={totalAmount}
+                                            onChange={(e) => handleTotalAmountChange(e.target.value)}
                                             className="bg-[#2D3446] text-white font-bold focus:outline-none w-[90%] px-4 py-2"
                                         />
                                     </div>
