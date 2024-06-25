@@ -33,20 +33,20 @@ export default function TradeInfo() {
             <div className="bg-white dark:bg-[#1E2433] mb-1 rounded h-[60%] flex flex-col text-[#9EB1BF]">
                 <div className="flex justify-between">
                     <button
-                        className={`w-full focus:outline-none font-bold text-[11px] px-4 py-2 ${activeOrder === 'open' ? 'bg-[#1E2433] text-white border-t-4 border-[#66C37B]' : 'bg-[#161D2B]'}`}
+                        className={`w-full focus:outline-none font-bold text-[11px] px-4 py-2 ${activeOrder === 'open' ? 'bg-[#1E2433] text-white border-t-4 border-[#66C37B] rounded-s-[4px]' : 'bg-[#161D2B] rounded-s-[4px]'}`}
                         onClick={() => setaAtiveOrder('open')}
                     >
                         OPEN ORDERS
                     </button>
                     <button
-                        className={`w-full focus:outline-none font-bold text-[11px] px-4 py-2 ${activeOrder === 'completed' ? 'bg-[#1E2433] text-white border-t-4 border-[#66C37B]' : 'bg-[#161D2B]'}`}
+                        className={`w-full focus:outline-none font-bold text-[11px] px-4 py-2 ${activeOrder === 'completed' ? 'bg-[#1E2433] text-white border-t-4 border-[#66C37B] rounded-e-[4px]' : 'bg-[#161D2B] rounded-e-[4px]'}`}
                         onClick={() => setaAtiveOrder('completed')}
                     >
                         COMPLETED ORDERS
                     </button>
                 </div>
                 {activeOrder == "open" &&
-                    <div className="flex items-center px-2">
+                    <div className="flex items-center px-2 border-b-[1px] border-[#141822] pb-1">
                         <div
                             className={`relative inline-block w-6 h-3 transition duration-200 ease-in ${isToggled ? 'bg-blue-500' : 'bg-gray-300'
                                 } rounded-full cursor-pointer`}
@@ -61,7 +61,7 @@ export default function TradeInfo() {
                     </div>
                 }
                 {activeOrder == "completed" &&
-                    <div className="flex items-center justify-between px-2">
+                    <div className="flex items-center justify-between px-2  border-b-[1px] border-[#141822] pb-1">
                         <div className="flex  items-center">
                             <div
                                 className={`relative inline-block w-6 h-3 transition duration-200 ease-in ${isToggled ? 'bg-blue-500' : 'bg-gray-300'
@@ -90,11 +90,11 @@ export default function TradeInfo() {
                         </div>
                     </div>
                 }
-                <div className="flex justify-between items-center h-5">
-                    <div className="w-full justify-center text-[10px] font-semibold cursor-pointer text-[#9EB1BF] flex">PAIR</div>
-                    <div className="w-full justify-center text-[10px] font-semibold cursor-pointer text-[#9EB1BF] flex">AMOUNT</div>
-                    <div className="w-full justify-center text-[10px] font-semibold cursor-pointer text-[#9EB1BF] flex">PRICE</div>
-                    <div className="w-full justify-center text-[10px] font-semibold cursor-pointer text-[#9EB1BF] flex">TOTAL</div>
+                <div className="flex justify-between items-center h-5 pl-2 border-b-[1px] border-[#2C3240] ">
+                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">PAIR</div>
+                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">AMOUNT</div>
+                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">PRICE</div>
+                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">TOTAL</div>
                 </div>
             </div>
 
@@ -102,13 +102,13 @@ export default function TradeInfo() {
             <div className="bg-white dark:bg-[#141A28] mt-1 rounded h-[40%] flex flex-col text-[#9EB1BF]">
                 <div className="flex justify-between border-b-2 border-[#2D3446]">
                     <button
-                        className={`w-full focus:outline-none font-bold text-[11px] px-4 py-2 ${activeTab === 'buy' ? 'bg-[#1E2433] text-white border-t-4 border-[#66C37B]' : 'bg-[#161D2B]'}`}
+                        className={`w-full focus:outline-none font-bold text-[11px] px-4 py-2 ${activeTab === 'buy' ? 'bg-[#1E2433] text-white border-t-4 border-[#66C37B] rounded-s-[4px]' : 'bg-[#161D2B] rounded-s-[4px]'}`}
                         onClick={() => setActiveTab('buy')}
                     >
                         BUY
                     </button>
                     <button
-                        className={`w-full focus:outline-none font-bold text-[11px] px-4 py-2 ${activeTab === 'sell' ? 'bg-[#1E2433] text-white border-t-4 border-[#F6685E]' : 'bg-[#161D2B]'}`}
+                        className={`w-full focus:outline-none font-bold text-[11px] px-4 py-2 ${activeTab === 'sell' ? 'bg-[#1E2433] text-white border-t-4 border-[#F6685E] rounded-e-[4px]' : 'bg-[#161D2B] rounded-e-[4px]'}`}
                         onClick={() => setActiveTab('sell')}
                     >
                         SELL
