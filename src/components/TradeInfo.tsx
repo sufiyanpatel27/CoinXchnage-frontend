@@ -99,7 +99,7 @@ export default function TradeInfo() {
             </div>
 
 
-            <div className="bg-white dark:bg-[#141A28] mt-1 rounded h-[40%] flex flex-col text-[#9EB1BF]">
+            <div className="bg-white dark:bg-[#1E2433] mt-1 rounded h-[40%] flex flex-col text-[#9EB1BF]">
                 <div className="flex justify-between border-b-2 border-[#2D3446]">
                     <button
                         className={`w-full focus:outline-none font-bold text-[11px] px-4 py-2 ${activeTab === 'buy' ? 'bg-[#1E2433] text-white border-t-4 border-[#66C37B] rounded-s-[4px]' : 'bg-[#161D2B] rounded-s-[4px]'}`}
@@ -123,8 +123,107 @@ export default function TradeInfo() {
                     </div>
                 }
                 {!loggIn &&
-                    <div className="flex flex-col items-center mt-20 gap-2">
-                        logged In
+                    <div className="flex flex-col px-2 items-center mt-2 gap-2">
+                        {activeTab === "buy" &&
+                            <div className="px-3 text-[#9EB1BF] flex flex-col gap-4">
+                                <div className="flex justify-between items-center bg-[#2D3446] rounded-md">
+                                    <div className="w-[20%]">
+                                        <label className="block text-[11px] text-end">AT PRICE</label>
+                                        <h2 className="text-[11px] text-end font-bold">INR</h2>
+                                    </div>
+                                    <div className="flex items-center w-[50%] ">
+                                        <input
+                                            type="text"
+                                            value="500000"
+                                            className="bg-[#2D3446] text-white font-bold focus:outline-none w-[90%] px-4 py-2"
+                                        />
+                                    </div>
+                                    <span className="w-[35%] text-[12px] font-bold text-[#66C37B]">LOWEST PRICE</span>
+                                </div>
+
+                                <div className="flex justify-between items-center bg-[#2D3446] rounded-md">
+                                    <div className="w-[20%]">
+                                        <label className="block text-[11px] text-end">AMOUNT</label>
+                                        <h2 className="text-[11px] text-end font-bold">BTC</h2>
+                                    </div>
+                                    <div className="flex items-center w-[80%] ">
+                                        <input
+                                            type="text"
+                                            value="0.00000"
+                                            className="bg-[#2D3446] text-white font-bold focus:outline-none w-[90%] px-4 py-2"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="flex justify-between items-center bg-[#2D3446] rounded-md">
+                                    <div className="w-[20%]">
+                                        <label className="block text-[11px] text-end">TOTAL</label>
+                                        <h2 className="text-[11px] text-end font-bold">INR</h2>
+                                    </div>
+                                    <div className="flex items-center w-[80%] ">
+                                        <input
+                                            type="text"
+                                            value="0"
+                                            className="bg-[#2D3446] text-white font-bold focus:outline-none w-[90%] px-4 py-2"
+                                        />
+                                    </div>
+                                </div>
+
+
+                                <button onClick={() => navigate('/signin')} className="text-sm font-bold w-full bg-[#66C37B] px-6 py-3 rounded-md text-white">BUY BTC</button>
+                            </div>
+                        }
+
+                        {activeTab === "sell" &&
+                            <div className="px-3 text-[#9EB1BF] flex flex-col gap-4">
+                                <div className="flex justify-between items-center bg-[#2D3446] rounded-md">
+                                    <div className="w-[20%]">
+                                        <label className="block text-[11px] text-end">AT PRICE</label>
+                                        <h2 className="text-[11px] text-end font-bold">INR</h2>
+                                    </div>
+                                    <div className="flex items-center w-[50%] ">
+                                        <input
+                                            type="text"
+                                            value="500000"
+                                            className="bg-[#2D3446] text-white font-bold focus:outline-none w-[90%] px-4 py-2"
+                                        />
+                                    </div>
+                                    <span className="w-[35%] text-[12px] font-bold text-[#F6685E]">HIGHEST PRICE</span>
+                                </div>
+
+                                <div className="flex justify-between items-center bg-[#2D3446] rounded-md">
+                                    <div className="w-[20%]">
+                                        <label className="block text-[11px] text-end">AMOUNT</label>
+                                        <h2 className="text-[11px] text-end font-bold">BTC</h2>
+                                    </div>
+                                    <div className="flex items-center w-[80%] ">
+                                        <input
+                                            type="text"
+                                            value="0.00000"
+                                            className="bg-[#2D3446] text-white font-bold focus:outline-none w-[90%] px-4 py-2"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="flex justify-between items-center bg-[#2D3446] rounded-md">
+                                    <div className="w-[20%]">
+                                        <label className="block text-[11px] text-end">TOTAL</label>
+                                        <h2 className="text-[11px] text-end font-bold">INR</h2>
+                                    </div>
+                                    <div className="flex items-center w-[80%] ">
+                                        <input
+                                            type="text"
+                                            value="0"
+                                            className="bg-[#2D3446] text-white font-bold focus:outline-none w-[90%] px-4 py-2"
+                                        />
+                                    </div>
+                                </div>
+
+
+                                <button onClick={() => navigate('/signin')} className="text-sm font-bold w-full bg-[#F6685E] px-6 py-3 rounded-md text-white">SELL BTC</button>
+                            </div>
+                        }
+
                     </div>
                 }
             </div>
