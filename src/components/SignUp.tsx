@@ -15,8 +15,13 @@ const SignUp = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (email === "" || password === "") {
+      alert("please enter the username and password feild.");
+      return
+    }
     await signUp(email, password)
     .then(() => navigate("/signin"))
+    .catch(() => alert("User with this email already exists."))
   };
 
   const [mode, setMode] = useState(true)
