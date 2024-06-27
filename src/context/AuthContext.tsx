@@ -5,7 +5,7 @@ import {jwtDecode} from 'jwt-decode';
 interface AuthContextType {
   token: string | null;
   email: string | null;
-  signUp: (email: string, password: string) => Promise<void>;
+  signUp: (email: string, name: string, password: string) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => void;
 }
@@ -27,8 +27,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem('email', decodedToken.email);
   };
 
-  const signUp = async (email: string, password: string) => {
-    await axios.post(base_url + 'signup', { email, password });
+  const signUp = async (email: string, name: string, password: string) => {
+    await axios.post(base_url + 'signup', { email, name, password });
     // handleAuth(response.data.token);
   };
 
