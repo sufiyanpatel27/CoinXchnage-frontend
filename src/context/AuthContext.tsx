@@ -28,8 +28,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const signUp = async (email: string, password: string) => {
-    const response = await axios.post(base_url + 'signup', { email, password });
-    handleAuth(response.data.token);
+    await axios.post(base_url + 'signup', { email, password });
+    // handleAuth(response.data.token);
   };
 
   const signIn = async (email: string, password: string) => {
