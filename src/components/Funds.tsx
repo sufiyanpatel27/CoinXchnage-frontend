@@ -2,31 +2,8 @@
 import { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import Navbar from './Navbar';
-import google from '../assets/google.svg'
-import github from '../assets/github.svg'
-import { useNavigate } from 'react-router-dom';
 
 export default function Funds() {
-
-    let navigate = useNavigate();
-
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const { signIn } = useAuth();
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-
-        if (email === "" || password === "") {
-            alert("please enter the username and password feild.");
-            return
-        }
-
-        signIn(email, password)
-            .then(() => navigate("/exchange"))
-            .catch(() => alert("Invalid email or password"))
-    };
 
     const [mode, setMode] = useState(true)
     const handleTheme = () => {
