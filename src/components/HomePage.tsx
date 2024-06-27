@@ -16,7 +16,7 @@ export default function HomePage() {
     return (
         <div className={`${mode && "dark"}`}>
             <div className='h-screen bg-[#F0F2F5] dark:bg-[#101623] text-white flex flex-col'>
-                <Navbar mode={mode} handleTheme={handleTheme} />
+                <Navbar mode={mode} handleTheme={handleTheme} activeTab="EXCHANGE"/>
                 <div className="flex justify-between h-screen mt-1 text-black dark:text-white">
                     <Coinlist />
                     <div className="w-[61%] flex flex-col justify-between m-1">

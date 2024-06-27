@@ -27,7 +27,7 @@ const SignUp = () => {
   return (
     <div className={`${mode && "dark"}`}>
       <div className='h-screen bg-[#F0F2F5] dark:bg-[#101623] text-white flex flex-col'>
-        <Navbar mode={mode} handleTheme={handleTheme} />
+        <Navbar mode={mode} handleTheme={handleTheme} activeTab="SIGNUP"/>
         <div className='w-screen h-screen flex justify-center pt-10'>
           <div className='bg-gray-800 w-[30%] px-6 py-6 h-[95%]'>
             <h2 className='font-bold text-2xl'>Sign Up to CoinXChange</h2>

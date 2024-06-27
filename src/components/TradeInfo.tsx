@@ -38,7 +38,7 @@ export default function TradeInfo() {
 
     const { email } = useAuth();
 
-    const [loggIn, setLoggedIn] = useState(email ? false : true)
+    const [loggedIn, setLoggedIn] = useState(email ? false : true)
 
     const [activeTab, setActiveTab] = useState('buy');
 
@@ -146,14 +146,14 @@ export default function TradeInfo() {
                     </button>
                 </div>
 
-                {loggIn &&
+                {loggedIn &&
                     <div className="flex flex-col items-center mt-20 gap-2">
                         <button onClick={() => navigate('/signin')} className="text-[12px] font-bold w-[60%] bg-[#66C37B] px-6 py-3 rounded-md text-white">LOGIN</button>
                         <span className="text-white text-[12px]">OR</span>
                         <button onClick={() => navigate('/signup')} className="text-[12px] font-bold w-[60%] bg-transparent border border-[#66C37B] text-white px-6 py-3 rounded-md">CREATE AN ACCOUNT</button>
                     </div>
                 }
-                {!loggIn &&
+                {!loggedIn &&
                     <div className="flex flex-col px-2 items-center mt-2 gap-2">
                         {activeTab === "buy" &&
                             <div className="px-3 text-[#9EB1BF] flex flex-col gap-4">

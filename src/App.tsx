@@ -12,6 +12,7 @@ import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
 import { useAuth } from './hooks/useAuth'
 import HomePage from './components/HomePage'
+import Funds from './components/Funds'
 
 
 const Home = () => {
@@ -38,6 +39,7 @@ export default function App() {
       <Router>
         <Routes>
           <Route path="/exchange" element={<HomePage />} />
+          <Route path="/funds" element={<Funds />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/" element={<PrivateRoute> <Home /> </PrivateRoute>} />
