@@ -16,6 +16,8 @@ export default function TradeInfo() {
 
     const currCoin: any = useSelector((state: RootState) => state.coin.currCoin);
 
+    const allCoins = useSelector((state: RootState) => state.coin.allCoins);
+
     const userInfo = useSelector((state: RootState) => state.userInfo);
 
 
@@ -168,11 +170,39 @@ export default function TradeInfo() {
                     </div>
                 }
                 <div className="flex justify-between items-center h-5 pl-2 border-b-[1px] border-[#2C3240] ">
-                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">PAIR</div>
-                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">AMOUNT</div>
-                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">PRICE</div>
-                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">TOTAL</div>
+                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">ASSET</div>
+                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">INVESTED INR</div>
+                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">PORTFOLIO</div>
+                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">ALL-TIME GANIS</div>
                 </div>
+
+                {activeOrder == "open" && userInfo.userInfo.name &&
+                    userInfo.userInfo.holdings.map((coin) => {
+
+                        if (allCoins[0]) {
+
+
+                            const coinInfo = allCoins.find((obj) => obj.symbol === coin.symbol);
+                            const coinPrice = coinInfo.data[coinInfo.data.length - 1].close;
+                            const currentPortfolio = coin.totalBalance * coinPrice;
+
+                            const difference = Math.abs(coin.invested - currentPortfolio);
+                            const average = (coin.invested + currentPortfolio) / 2;
+                            const percentageDiff = (difference / average) * 100;
+                            const trade = coin.invested < currentPortfolio ? "profit" : "loss";
+                            const allTimeGains = percentageDiff.toFixed(2);
+
+                            return (
+                                <div className="flex justify-between items-center h-5 pl-2 border-b-[1px] border-[#2C3240] ">
+                                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">{coin.name}</div>
+                                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">{coin.invested}</div>
+                                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">{currentPortfolio.toFixed(2)}</div>
+                                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">{trade === "profit" ? "+" : "-"} {allTimeGains}%</div>
+                                </div>
+                            )
+                        }
+                    })
+                }
             </div>
 
 
