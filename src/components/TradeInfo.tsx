@@ -1,15 +1,23 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../app/store";
+import axios from "axios";
+import { setUserInfo } from "../feature/coin/userSlice";
 
 
 export default function TradeInfo() {
 
     let navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const base_url = import.meta.env.VITE_BASE_URL || "http://localhost:5000/";
 
     const currCoin: any = useSelector((state: RootState) => state.coin.currCoin);
+
+    const userInfo = useSelector((state: RootState) => state.userInfo);
+
 
     let coinPrice: number = 0;
     if (currCoin.name) {
@@ -21,13 +29,13 @@ export default function TradeInfo() {
 
     const handleCoinAmountChange = (value: any) => {
         setCoinAmount(value)
-        const rounded = Math.round((value*coinPrice) * 100) / 100;
+        const rounded = Math.round((value * coinPrice) * 100) / 100;
         setTotalAmount(rounded)
     }
 
     const handleTotalAmountChange = (value: any) => {
         setTotalAmount(value)
-        const rounded = Math.round((value/coinPrice) * 100) / 100;
+        const rounded = Math.round((value / coinPrice) * 100) / 100;
         setCoinAmount(rounded)
     }
 
@@ -55,7 +63,45 @@ export default function TradeInfo() {
         setIsToggledCancel(!isToggledcancel);
     };
 
-    
+    const handleBuyCoin = () => {
+
+        if (totalAmount <= userInfo.userInfo.balance) {
+            if (confirm("Do you want to proceed the Transaction?")) {
+                axios.post(base_url + 'buyCoin/' + userInfo.userInfo.userId,
+                    {
+                        coin: currCoin,
+                        coinAmount: coinAmount,
+                        totalAmount: totalAmount
+                    }
+                )
+                    .then((res) => dispatch(setUserInfo(res.data.newUserInfo)))
+                    .catch((err) => alert(err.response.data.message))
+            } else {
+                console.log("transactino canceled")
+            }
+        } else {
+            alert("Insufficient Balance!")
+
+        }
+    }
+
+
+    const handleSellCoin = () => {
+        if (confirm("Do you want to proceed the Transaction?")) {
+            axios.post(base_url + 'sellCoin/' + userInfo.userInfo.userId,
+                {
+                    coin: currCoin,
+                    coinAmount: coinAmount,
+                    totalAmount: totalAmount
+                }
+            )
+                .then((res) => dispatch(setUserInfo(res.data.newUserInfo)))
+                .catch((err) => alert(err.response.data.message))
+        } else {
+            console.log("transactino canceled")
+        }
+    }
+
 
 
 
@@ -204,7 +250,7 @@ export default function TradeInfo() {
                                 </div>
 
 
-                                <button onClick={() => navigate('/signin')} className="text-sm font-bold w-full bg-[#66C37B] px-6 py-3 rounded-md text-white">BUY BTC</button>
+                                <button onClick={() => handleBuyCoin()} className="text-sm font-bold w-full bg-[#66C37B] px-6 py-3 rounded-md text-white">BUY {currCoin.symbol}</button>
                             </div>
                         }
 
@@ -256,7 +302,7 @@ export default function TradeInfo() {
                                 </div>
 
 
-                                <button onClick={() => navigate('/signin')} className="text-sm font-bold w-full bg-[#F6685E] px-6 py-3 rounded-md text-white">SELL BTC</button>
+                                <button onClick={() => handleSellCoin()} className="text-sm font-bold w-full bg-[#F6685E] px-6 py-3 rounded-md text-white">SELL {currCoin.symbol}</button>
                             </div>
                         }
 

@@ -1,21 +1,52 @@
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import Navbar from './Navbar';
+import { useSelector } from 'react-redux';
+import { RootState } from '../app/store';
 
 export default function Funds() {
 
-    const [mode, setMode] = useState(true)
+    const userInfo = useSelector((state: RootState) => state.userInfo);
+    const allCoins = useSelector((state: RootState) => state.coin.allCoins);
+
+    const [mode, setMode] = useState(true);
     const handleTheme = () => {
-        setMode(!mode)
-    }
+        setMode(!mode);
+    };
 
+    const [cryptoHoldings, setCryptoHoldings] = useState(0);
+    const [investedValue, setInvestedValue] = useState(0);
+    const [totalPortfolio, setTotalPortfolio] = useState(0);
+    const [allTimeGains, setAllTimeGains] = useState(0);
+    const [trade, setTrade] = useState("");
 
-    const data = [
-        { name: "ThisCoin", symbol: 'THIS', balance: 1500, investedAmt: 910, portfolio: 412.52, gains: 500.03 },
-        { name: "ThisCoin", symbol: 'THIS', balance: 1500, investedAmt: 910, portfolio: 412.52, gains: 500.03 },
-    ];
+    useEffect(() => {
+        let tempCryptoHoldings = 0;
+        let tempInvestedValue = 0;
+        let tempTotalPortfolio = 0;
 
+        userInfo.userInfo.holdings.forEach((coin) => {
+            const coinInfo = allCoins.find((obj) => obj.symbol === coin.symbol);
+            const coinPrice = coinInfo.data[coinInfo.data.length - 1].close;
+            const currentPortfolio = coin.totalBalance * coinPrice;
+
+            tempCryptoHoldings += currentPortfolio;
+            tempInvestedValue += coin.invested;
+            tempTotalPortfolio += currentPortfolio;
+        });
+
+        const difference = Math.abs(tempInvestedValue - tempCryptoHoldings);
+        const average = (tempInvestedValue + tempCryptoHoldings) / 2;
+        const percentageDiff = (difference / average) * 100;
+        const trade = tempInvestedValue < tempCryptoHoldings ? "+" : "-";
+        setTrade(trade)
+
+        setCryptoHoldings(tempCryptoHoldings);
+        setInvestedValue(tempInvestedValue);
+        setTotalPortfolio(tempTotalPortfolio);
+        setAllTimeGains(percentageDiff);
+
+    }, [userInfo, allCoins]);
 
     return (
         <div className={`${mode && "dark"}`}>
@@ -41,35 +72,31 @@ export default function Funds() {
                         </div>
                     </div>
 
-
                     <div className='flex gap-3 w-full mt-10 text-sm'>
                         <div className='w-full rounded-md bg-[#1E2433] h-full px-4 py-4 flex flex-col gap-2 justify-center'>
                             <h2 className='font-bold text-sm'>Total portfolio value</h2>
-                            <h2 className='font-bold text-xl'>$466.65</h2>
+                            <h2 className='font-bold text-xl'>${totalPortfolio.toFixed(2)}</h2>
                         </div>
                         <div className='w-full rounded-md bg-[#1E2433] h-full px-4 py-4 flex flex-col gap-2 justify-center'>
                             <div className='flex justify-between'>
                                 <h2>Crypto Holdings</h2>
-                                <h2 className='font-bold'>$407.92</h2>
+                                <h2 className='font-bold'>${cryptoHoldings.toFixed(2)}</h2>
                             </div>
                             <div className='flex justify-between'>
                                 <h2>Invested Value</h2>
-                                <h2 className='font-bold'>926.86</h2>
+                                <h2 className='font-bold'>${investedValue.toFixed(2)}</h2>
                             </div>
                         </div>
                         <div className='w-full rounded-md bg-[#1E2433] h-full px-4 py-4 flex justify-between items-center'>
-                            <h2>
-                                All time Gains
-                            </h2>
-                            <h2 className='font-bold'>205.52</h2>
+                            <h2>All time Gains</h2>
+                            <h2 className='font-bold'>{trade}{allTimeGains.toFixed(2)}%</h2>
                         </div>
                         <div className='w-full rounded-md bg-[#1E2433] h-full px-4 py-4 flex justify-between items-center'>
-                            <h2>
-                                All time Gains
-                            </h2>
-                            <h2 className='font-bold'>205.52</h2>
+                            <h2>INR Balance</h2>
+                            <h2 className='font-bold'>${userInfo.userInfo.balance}</h2>
                         </div>
                     </div>
+
                     <div className='mt-10 w-full'>
                         <div className="overflow-x-auto">
                             <table className="min-w-full">
@@ -96,19 +123,34 @@ export default function Funds() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {data.map((coin, index) => (
-                                        <tr className={index % 2 === 0 ? 'bg-[#1E2433]' : 'bg-[#161D2B]'}>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">{coin.name}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm">{coin.balance}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm">{coin.investedAmt}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm">{coin.portfolio}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm">{coin.gains}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm">
-                                                <button>Deposit</button>
-                                                <button>Withdraw</button>
-                                            </td>
-                                        </tr>
-                                    ))}
+                                    {userInfo.userInfo.holdings.map((coin, index) => {
+
+                                        const coinInfo = allCoins.find((obj) => obj.symbol === coin.symbol);
+                                        const coinPrice = coinInfo.data[coinInfo.data.length - 1].close;
+                                        const currentPortfolio = coin.totalBalance * coinPrice;
+
+                                        const difference = Math.abs(coin.invested - currentPortfolio);
+                                        const average = (coin.invested + currentPortfolio) / 2;
+                                        const percentageDiff = (difference / average) * 100;
+                                        const trade = coin.invested < currentPortfolio ? "profit" : "loss";
+                                        const allTimeGains = percentageDiff.toFixed(2);
+
+                                        return (
+                                            <tr className={index % 2 === 0 ? 'bg-[#1E2433]' : 'bg-[#161D2B]'}>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">{coin.name}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm">{coin.totalBalance}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm">{coin.invested}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm">{currentPortfolio.toFixed(2)}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm">
+                                                    {trade === "profit" ? "+" : "-"} {allTimeGains}%
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm">
+                                                    <button>Deposit</button>
+                                                    <button>Withdraw</button>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })}
                                 </tbody>
                             </table>
                         </div>
