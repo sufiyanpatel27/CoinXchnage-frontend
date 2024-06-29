@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 
 export default function Funds() {
-
     const userInfo = useSelector((state: RootState) => state.userInfo);
     const allCoins = useSelector((state: RootState) => state.coin.allCoins);
 
@@ -39,45 +38,45 @@ export default function Funds() {
         const average = (tempInvestedValue + tempCryptoHoldings) / 2;
         const percentageDiff = (difference / average) * 100;
         const trade = tempInvestedValue < tempCryptoHoldings ? "+" : "-";
-        setTrade(trade)
+        setTrade(trade);
 
         setCryptoHoldings(tempCryptoHoldings);
         setInvestedValue(tempInvestedValue);
         setTotalPortfolio(tempTotalPortfolio);
         setAllTimeGains(percentageDiff);
-
     }, [userInfo, allCoins]);
 
     return (
         <div className={`${mode && "dark"}`}>
-            <div className='h-screen bg-[#F0F2F5] dark:bg-[#101623] text-white flex flex-col'>
+            <div className='min-h-screen bg-[#F0F2F5] dark:bg-[#101623] text-white flex flex-col'>
                 <Navbar mode={mode} handleTheme={handleTheme} activeTab="FUNDS" />
-                <div className='w-screen h-screen flex flex-col items-center pt-20 px-32'>
-                    <div className='w-full flex justify-between border-b-[1px] border-[#3A4152]'>
+                <h2 className='absolute mt-12 mx-4 lg:mt-20 lg:mx-24 text-xl font-semibold'>Hi {userInfo.userInfo.name}</h2>
+                <div className='w-full h-full flex flex-col items-center pt-20 px-4 sm:px-6 lg:px-24'>
+                    <div className='w-full flex justify-between border-b-[1px] border-[#3A4152] pb-4'>
                         <div className='flex'>
-                            <div className='px-4 border-b-2 border-[#3067F0]'>
+                            <div className='px-2 sm:px-4 border-b-2 border-[#3067F0]'>
                                 <h2 className='text-[#3067F0] font-bold text-sm'>BALANCES</h2>
                             </div>
-                            <div className='px-4'>
+                            <div className='px-2 sm:px-4'>
                                 <h2 className='text-[#9EB1BF] font-bold text-sm'>TRANSFER HISTORY</h2>
                             </div>
                         </div>
-                        <div className='flex gap-4'>
+                        <div className='flex gap-2 sm:gap-4'>
                             <div>
-                                <button className='bg-[#1E2433] text-[12px] font-bold px-3 py-2 rounded-md border-[1px] border-[#3A4152] text-[#9EB1BF]'>Withdraw INR</button>
+                                <button className='bg-[#1E2433] text-[12px] font-bold px-2 py-2 sm:px-3 sm:py-2 rounded-md border-[1px] border-[#3A4152] text-[#9EB1BF]'>Withdraw INR</button>
                             </div>
                             <div>
-                                <button className='bg-[#66C37B] text-[12px] font-bold px-3 py-2 rounded-md'>Deposit INR</button>
+                                <button className='bg-[#66C37B] text-[12px] font-bold px-2 py-2 sm:px-3 sm:py-2 rounded-md'>Deposit INR</button>
                             </div>
                         </div>
                     </div>
 
-                    <div className='flex gap-3 w-full mt-10 text-sm'>
-                        <div className='w-full rounded-md bg-[#1E2433] h-full px-4 py-4 flex flex-col gap-2 justify-center'>
+                    <div className='flex flex-wrap justify-center gap-3 w-full mt-10 text-sm'>
+                        <div className='w-full sm:w-1/2 lg:w-[24%] rounded-md bg-[#1E2433] px-4 py-4 flex flex-col gap-2 justify-center'>
                             <h2 className='font-bold text-sm'>Total portfolio value</h2>
                             <h2 className='font-bold text-xl'>${totalPortfolio.toFixed(2)}</h2>
                         </div>
-                        <div className='w-full rounded-md bg-[#1E2433] h-full px-4 py-4 flex flex-col gap-2 justify-center'>
+                        <div className='w-full sm:w-1/2 lg:w-[24%] rounded-md bg-[#1E2433] px-4 py-4 flex flex-col gap-2 justify-center'>
                             <div className='flex justify-between'>
                                 <h2 className='text-[#cdd2df]'>Crypto Holdings</h2>
                                 <h2 className='font-bold'>${cryptoHoldings.toFixed(2)}</h2>
@@ -87,14 +86,14 @@ export default function Funds() {
                                 <h2 className='font-bold'>${investedValue.toFixed(2)}</h2>
                             </div>
                         </div>
-                        <div className='w-full rounded-md bg-[#1E2433] h-full px-4 py-4 flex justify-between items-center'>
+                        <div className='w-full sm:w-1/2 lg:w-[24%] rounded-md bg-[#1E2433] px-4 py-4 flex justify-between items-center'>
                             <h2 className='text-[#cdd2df] flex'>
                                 All time Gains
                                 <h2 className={`font-bold text-[12px] ml-2 px-1 ${trade === 'profit' ? 'text-[#66C37B]' : 'text-[#F6685E] bg-[#f6685e28]'}`}>{trade}{allTimeGains.toFixed(2)}%</h2>
                             </h2>
                             <h2 className={`font-bold ${trade === 'profit' ? 'text-[#66C37B]' : 'text-[#F6685E]'}`}>${(cryptoHoldings - investedValue).toFixed(2)}</h2>
                         </div>
-                        <div className='w-full rounded-md bg-[#1E2433] h-full px-4 py-4 flex justify-between items-center'>
+                        <div className='w-full sm:w-1/2 lg:w-[24%] rounded-md bg-[#1E2433] px-4 py-4 flex justify-between items-center'>
                             <h2 className='text-[#cdd2df]'>INR Balance</h2>
                             <h2 className='font-bold'>${userInfo.userInfo.balance}</h2>
                         </div>
@@ -105,22 +104,22 @@ export default function Funds() {
                             <table className="min-w-full">
                                 <thead className="bg-[#161D2B] text-[#ABB1BF]">
                                     <tr>
-                                        <th scope="col" className="px-6 py-3 text-left text-[10px] font-medium uppercase tracking-wider">
+                                        <th scope="col" className="px-2 sm:px-6 py-3 text-left text-[10px] font-medium uppercase tracking-wider">
                                             Assets
                                         </th>
-                                        <th scope="col" className="px-6 py-3 text-left text-[10px] font-medium uppercase tracking-wider">
+                                        <th scope="col" className="px-2 sm:px-6 py-3 text-left text-[10px] font-medium uppercase tracking-wider">
                                             Total Balance
                                         </th>
-                                        <th scope="col" className="px-6 py-3 text-left text-[10px] font-medium uppercase tracking-wider">
+                                        <th scope="col" className="px-2 sm:px-6 py-3 text-left text-[10px] font-medium uppercase tracking-wider">
                                             Invested INR
                                         </th>
-                                        <th scope="col" className="px-6 py-3 text-left text-[10px] font-medium uppercase tracking-wider">
+                                        <th scope="col" className="px-2 sm:px-6 py-3 text-left text-[10px] font-medium uppercase tracking-wider">
                                             Current Portfolio
                                         </th>
-                                        <th scope="col" className="px-6 py-3 text-left text-[10px] font-medium uppercase tracking-wider">
+                                        <th scope="col" className="px-2 sm:px-6 py-3 text-left text-[10px] font-medium uppercase tracking-wider">
                                             All - Time Gains
                                         </th>
-                                        <th scope="col" className="px-6 py-3 text-left text-[10px] font-medium uppercase tracking-wider">
+                                        <th scope="col" className="px-2 sm:px-6 py-3 text-left text-[10px] font-medium uppercase tracking-wider">
                                             Actions
                                         </th>
                                     </tr>
@@ -138,24 +137,24 @@ export default function Funds() {
                                         const allTimeGains = percentageDiff.toFixed(2);
 
                                         return (
-                                            <tr className={`${index % 2 === 0 ? 'bg-[#1E2433]' : 'bg-[#161D2B]'} hover:bg-[#1E2433] hover:border-y border-[#6f717560]`}>
-                                                <td className="px-6 py-4 whitespace-nowrap">
+                                            <tr key={index} className={`${index % 2 === 0 ? 'bg-[#1E2433]' : 'bg-[#161D2B]'} hover:bg-[#1E2433] hover:border-y border-[#6f717560]`}>
+                                                <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
                                                     <h2 className='font-bold'>{coin.name}</h2>
                                                     <h2 className='font-thin pt-1 text-sm text-[#ABB1BF]'>{coin.symbol}</h2>
                                                 </td>
-                                                <td className="px-6 py-4 whitespace-nowrap">{coin.totalBalance} {coin.symbol}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap">${coin.invested}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap">${currentPortfolio.toFixed(2)}</td>
-                                                <td className={`1px-6 py-4 whitespace-nowrap ${trade === 'profit' ? 'text-[#66C37B]' : 'text-[#F6685E]'}`}>
-                                                    <h2> {(currentPortfolio - coin.invested).toFixed(2)}</h2>
+                                                <td className="px-2 sm:px-6 py-4 whitespace-nowrap">{coin.totalBalance} {coin.symbol}</td>
+                                                <td className="px-2 sm:px-6 py-4 whitespace-nowrap">${coin.invested}</td>
+                                                <td className="px-2 sm:px-6 py-4 whitespace-nowrap">${currentPortfolio.toFixed(2)}</td>
+                                                <td className={`px-2 sm:px-6 py-4 whitespace-nowrap ${trade === 'profit' ? 'text-[#66C37B]' : 'text-[#F6685E]'}`}>
+                                                    <h2>{(currentPortfolio - coin.invested).toFixed(2)}</h2>
                                                     <h2 className='font-bold pt-1 text-[12px]'>{trade === "profit" ? "+" : "-"} {allTimeGains}%</h2>
                                                 </td>
-                                                <td className="whitespace-nowrap flex justify-evenly py-6">
-                                                    <button className='border rounded-md px-4 py-1 font-bold text-[#ABB1BF] border-[#51545a] text-sm hover:bg-[#66C378] hover:text-white'>Deposit</button>
-                                                    <button className='border rounded-md px-4 py-1 font-bold text-[#ABB1BF] border-[#51545a] text-sm hover:bg-[#F6685E] hover:text-white'>Withdraw</button>
+                                                <td className="px-2 sm:px-6 py-4 whitespace-nowrap flex justify-evenly">
+                                                    <button className='border rounded-md px-2 sm:px-4 py-1 font-bold text-[#ABB1BF] border-[#51545a] text-sm hover:bg-[#66C378] hover:text-white'>Deposit</button>
+                                                    <button className='border rounded-md px-2 sm:px-4 py-1 font-bold text-[#ABB1BF] border-[#51545a] text-sm hover:bg-[#F6685E] hover:text-white'>Withdraw</button>
                                                 </td>
                                             </tr>
-                                        )
+                                        );
                                     })}
                                 </tbody>
                             </table>

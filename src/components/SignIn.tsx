@@ -37,7 +37,7 @@ const SignIn = () => {
       <div className='h-screen bg-[#F0F2F5] dark:bg-[#101623] text-white flex flex-col'>
         <Navbar mode={mode} handleTheme={handleTheme} activeTab="SIGNIN" />
         <div className='w-screen h-screen flex justify-center pt-10'>
-          <div className='bg-gray-800 w-[30%] px-6 py-6 h-[95%]'>
+          <div className='bg-gray-800 w-[90%] md:w-[50%] lg:w-[30%] px-6 py-6 h-[95%]'>
             <h2 className='font-bold text-2xl'>Login to CoinXChange</h2>
             <div className='mt-8 bg-[#101623] flex justify-between h-12 rounded-sm'>
               <button className='bg-gray-800 w-[50%] my-1 mx-1 ml-1 font-bold rounded-sm'>Login</button>

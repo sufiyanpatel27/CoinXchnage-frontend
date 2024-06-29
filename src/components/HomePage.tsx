@@ -41,17 +41,18 @@ export default function HomePage() {
 
     return (
         <div className={`${mode && "dark"}`}>
-            <div className='h-screen bg-[#F0F2F5] dark:bg-[#101623] text-white flex flex-col'>
+            <div className='min-h-screen bg-[#F0F2F5] dark:bg-[#101623] text-white flex flex-col'>
                 <Navbar mode={mode} handleTheme={handleTheme} activeTab="EXCHANGE" />
-                <div className="flex justify-between h-screen mt-1 text-black dark:text-white">
+                <div className="flex-1 mt-1 text-black dark:text-white flex flex-col lg:flex-row">
                     <Coinlist />
-                    <div className="w-[61%] flex flex-col justify-between m-1">
+                    <div className="flex flex-col justify-between m-1 w-full lg:flex-[2]">
                         <CoinInfoUp />
-                        <CoininfoDown />
+                        <CoininfoDown  />
                     </div>
-                    <TradeInfo />
+                    <TradeInfo  />
                 </div>
             </div>
         </div>
+
     )
 }

@@ -50,8 +50,8 @@ export default function Coinlist() {
 
 
     return (
-        <div className="bg-white dark:bg-[#1E2433] w-[16%] ml-2 m-1 rounded">
-            <div className="h-[16%] flex flex-col justify-between mb-1">
+        <div className="bg-white dark:bg-[#1E2433] ml-2 mr-2 m-1 rounded lg:m-1 lg:min-w-[250px]">
+            <div className="flex flex-col justify-between mb-1">
                 <div className="relative p-3 border-b-2 border-[#2C3240]">
                     <input
                         type="text"
@@ -76,7 +76,7 @@ export default function Coinlist() {
                     </select>
                 </div>
             </div>
-            <div className="h-[84%]">
+            <div className="">
                 <div className="flex justify-between h-8">
                     <div className="w-full h-full font-bold text-sm cursor-pointer hover:text-white text-white flex justify-center items-center bg-[#1E2433] border-[#1E2433] border-r-2 border-t-[#66C37B]  border-t-4">INR</div>
                     <div className="w-full h-full font-bold text-sm cursor-pointer hover:text-white text-[#818898] flex justify-center items-center bg-[#161D2B] border-r-2 border-[#1E2433]">USDT</div>

@@ -128,7 +128,7 @@ export default function CoinInfoUp() {
     }
 
     return (
-        <div className="bg-white dark:bg-[#1E2433] h-[60%] mb-1 rounded
+        <div className="bg-white dark:bg-[#1E2433] h-full lg:h-[60%] mb-1 rounded w-full
             flex flex-col">
             <div className="flex justify-between p-1 pl-4 h-8 border-b-2 border-[#2D3446] cursor-pointer">
                 <div className="flex">
@@ -180,12 +180,8 @@ export default function CoinInfoUp() {
                     </div>
                 </div>
             </div>
-            <div id='container' className='w-full relative h-full flex justify-center items-center cursor-crosshair'>
+            <div id='container' className='w-full relative h-[300px] lg:h-full flex justify-center items-center cursor-crosshair'>
             </div>
         </div>
     )
-}
-
-function dispatch(arg0: any): any {
-    throw new Error('Function not implemented.');
 }

@@ -11,7 +11,7 @@ export default function CoininfoDown() {
 
 
     return (
-        <div className="h-[40%] mt-1 flex justify-between">
+        <div className="mt-1 hidden lg:flex justify-between h-[40%]">
             <div className="w-[63%] mr-1 bg-white dark:bg-[#1E2433] rounded flex flex-col">
                 <div className="flex justify-between items-center pl-4 h-8 border-b-2 border-[#2D3446] cursor-pointer">
                     <div className="flex h-full">
@@ -44,8 +44,8 @@ export default function CoininfoDown() {
                             const lowValue = currCoin.data[currCoin.data.length - 1 - i].low;
 
                             return (
-                                <div className="flex">
-                                    <div className="flex w-[50%] h-[27px] px-4" style={{
+                                <div className="flex h-[27px]">
+                                    <div className="flex w-[50%] h-full px-4" style={{
                                         background: `linear-gradient(to left, rgba(30,55,50,1.0) ${coinBoughtStyle}%, transparent ${coinBoughtStyle}%)`,
                                     }}>
                                         <div className="w-full pl-20 justify-end items-center text-[12px] font-semibold cursor-pointer flex">{coinBought / currCoin.users}</div>

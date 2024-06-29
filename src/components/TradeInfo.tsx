@@ -110,8 +110,8 @@ export default function TradeInfo() {
 
 
     return (
-        <div className="w-[23%] mr-2 m-1 flex flex-col justify-between">
-            <div className="bg-white dark:bg-[#1E2433] mb-1 rounded h-[60%] flex flex-col text-[#9EB1BF]">
+        <div className="flex flex-col-reverse lg:flex-col justify-between mr-2 m-1 lg:max-w-[350px]">
+            <div className="bg-white dark:bg-[#1E2433] mb-1 rounded h-[300px] lg:h-[60%] flex flex-col text-[#9EB1BF]">
                 <div className="flex justify-between">
                     <button
                         className={`w-full focus:outline-none font-bold text-[11px] px-4 py-2 ${activeOrder === 'open' ? 'bg-[#1E2433] text-white border-t-4 border-[#66C37B] rounded-s-[4px]' : 'bg-[#161D2B] rounded-s-[4px]'}`}
@@ -208,7 +208,7 @@ export default function TradeInfo() {
             </div>
 
 
-            <div className="bg-white dark:bg-[#1E2433] mt-1 rounded h-[40%] flex flex-col text-[#9EB1BF]">
+            <div className="bg-white dark:bg-[#1E2433] h-[300px] lg:h-[40%] mt-1 rounded flex flex-col text-[#9EB1BF]">
                 <div className="flex justify-between border-b-2 border-[#2D3446]">
                     <button
                         className={`w-full focus:outline-none font-bold text-[11px] px-4 py-2 ${activeTab === 'buy' ? 'bg-[#1E2433] text-white border-t-4 border-[#66C37B] rounded-s-[4px]' : 'bg-[#161D2B] rounded-s-[4px]'}`}
