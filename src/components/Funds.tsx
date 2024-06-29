@@ -35,7 +35,7 @@ export default function Funds() {
             tempTotalPortfolio += currentPortfolio;
         });
 
-        const difference = Math.abs(tempInvestedValue - tempCryptoHoldings);
+        const difference = Math.abs(tempCryptoHoldings - tempInvestedValue);
         const average = (tempInvestedValue + tempCryptoHoldings) / 2;
         const percentageDiff = (difference / average) * 100;
         const trade = tempInvestedValue < tempCryptoHoldings ? "+" : "-";
@@ -79,20 +79,23 @@ export default function Funds() {
                         </div>
                         <div className='w-full rounded-md bg-[#1E2433] h-full px-4 py-4 flex flex-col gap-2 justify-center'>
                             <div className='flex justify-between'>
-                                <h2>Crypto Holdings</h2>
+                                <h2 className='text-[#cdd2df]'>Crypto Holdings</h2>
                                 <h2 className='font-bold'>${cryptoHoldings.toFixed(2)}</h2>
                             </div>
                             <div className='flex justify-between'>
-                                <h2>Invested Value</h2>
+                                <h2 className='text-[#cdd2df]'>Invested Value</h2>
                                 <h2 className='font-bold'>${investedValue.toFixed(2)}</h2>
                             </div>
                         </div>
                         <div className='w-full rounded-md bg-[#1E2433] h-full px-4 py-4 flex justify-between items-center'>
-                            <h2>All time Gains</h2>
-                            <h2 className='font-bold'>{trade}{allTimeGains.toFixed(2)}%</h2>
+                            <h2 className='text-[#cdd2df] flex'>
+                                All time Gains
+                                <h2 className={`font-bold text-[12px] ml-2 px-1 ${trade === 'profit' ? 'text-[#66C37B]' : 'text-[#F6685E] bg-[#f6685e28]'}`}>{trade}{allTimeGains.toFixed(2)}%</h2>
+                            </h2>
+                            <h2 className={`font-bold ${trade === 'profit' ? 'text-[#66C37B]' : 'text-[#F6685E]'}`}>${(cryptoHoldings - investedValue).toFixed(2)}</h2>
                         </div>
                         <div className='w-full rounded-md bg-[#1E2433] h-full px-4 py-4 flex justify-between items-center'>
-                            <h2>INR Balance</h2>
+                            <h2 className='text-[#cdd2df]'>INR Balance</h2>
                             <h2 className='font-bold'>${userInfo.userInfo.balance}</h2>
                         </div>
                     </div>
@@ -128,25 +131,28 @@ export default function Funds() {
                                         const coinInfo = allCoins.find((obj) => obj.symbol === coin.symbol);
                                         const coinPrice = coinInfo.data[coinInfo.data.length - 1].close;
                                         const currentPortfolio = coin.totalBalance * coinPrice;
-
-                                        const difference = Math.abs(coin.invested - currentPortfolio);
+                                        const difference = Math.abs(currentPortfolio - coin.invested);
                                         const average = (coin.invested + currentPortfolio) / 2;
                                         const percentageDiff = (difference / average) * 100;
                                         const trade = coin.invested < currentPortfolio ? "profit" : "loss";
                                         const allTimeGains = percentageDiff.toFixed(2);
 
                                         return (
-                                            <tr className={index % 2 === 0 ? 'bg-[#1E2433]' : 'bg-[#161D2B]'}>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">{coin.name}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm">{coin.totalBalance}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm">{coin.invested}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm">{currentPortfolio.toFixed(2)}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm">
-                                                    {trade === "profit" ? "+" : "-"} {allTimeGains}%
+                                            <tr className={`${index % 2 === 0 ? 'bg-[#1E2433]' : 'bg-[#161D2B]'} hover:bg-[#1E2433] hover:border-y border-[#6f717560]`}>
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    <h2 className='font-bold'>{coin.name}</h2>
+                                                    <h2 className='font-thin pt-1 text-sm text-[#ABB1BF]'>{coin.symbol}</h2>
                                                 </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm">
-                                                    <button>Deposit</button>
-                                                    <button>Withdraw</button>
+                                                <td className="px-6 py-4 whitespace-nowrap">{coin.totalBalance} {coin.symbol}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap">${coin.invested}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap">${currentPortfolio.toFixed(2)}</td>
+                                                <td className={`1px-6 py-4 whitespace-nowrap ${trade === 'profit' ? 'text-[#66C37B]' : 'text-[#F6685E]'}`}>
+                                                    <h2> {(currentPortfolio - coin.invested).toFixed(2)}</h2>
+                                                    <h2 className='font-bold pt-1 text-[12px]'>{trade === "profit" ? "+" : "-"} {allTimeGains}%</h2>
+                                                </td>
+                                                <td className="whitespace-nowrap flex justify-evenly py-6">
+                                                    <button className='border rounded-md px-4 py-1 font-bold text-[#ABB1BF] border-[#51545a] text-sm hover:bg-[#66C378] hover:text-white'>Deposit</button>
+                                                    <button className='border rounded-md px-4 py-1 font-bold text-[#ABB1BF] border-[#51545a] text-sm hover:bg-[#F6685E] hover:text-white'>Withdraw</button>
                                                 </td>
                                             </tr>
                                         )
