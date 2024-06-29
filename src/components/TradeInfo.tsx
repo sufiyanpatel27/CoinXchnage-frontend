@@ -71,7 +71,8 @@ export default function TradeInfo() {
             if (confirm("Do you want to proceed the Transaction?")) {
                 axios.post(base_url + 'buyCoin/' + userInfo.userInfo.userId,
                     {
-                        coin: currCoin,
+                        coinName: currCoin.name,
+                        coinSymbol: currCoin.symbol,
                         coinAmount: coinAmount,
                         totalAmount: totalAmount
                     }
@@ -92,7 +93,8 @@ export default function TradeInfo() {
         if (confirm("Do you want to proceed the Transaction?")) {
             axios.post(base_url + 'sellCoin/' + userInfo.userInfo.userId,
                 {
-                    coin: currCoin,
+                    coinName: currCoin.name,
+                    coinSymbol: currCoin.symbol,
                     coinAmount: coinAmount,
                     totalAmount: totalAmount
                 }
