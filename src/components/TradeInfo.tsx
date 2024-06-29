@@ -171,9 +171,9 @@ export default function TradeInfo() {
                 }
                 <div className="flex justify-between items-center h-5 pl-2 border-b-[1px] border-[#2C3240] ">
                     <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">ASSET</div>
+                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">BALANCE</div>
                     <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">INVESTED INR</div>
                     <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">PORTFOLIO</div>
-                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">ALL-TIME GANIS</div>
                 </div>
 
                 {activeOrder == "open" && userInfo.userInfo.name &&
@@ -193,11 +193,11 @@ export default function TradeInfo() {
                             const allTimeGains = percentageDiff.toFixed(2);
 
                             return (
-                                <div className="flex justify-between items-center h-5 pl-2 border-b-[1px] border-[#2C3240] ">
-                                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">{coin.name}</div>
-                                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">{coin.invested}</div>
-                                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">{currentPortfolio.toFixed(2)}</div>
-                                    <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">{trade === "profit" ? "+" : "-"} {allTimeGains}%</div>
+                                <div className={`flex justify-between items-center h-12 pl-2 text-white ${trade === "profit" ? 'bg-[rgba(30,55,50,1.0)] border-l-4 border-green-400' : 'bg-[rgba(62,31,39,1.0)] border-l-4 border-red-400'}`}>
+                                    <div className="w-full text-[12px] font-bold cursor-pointer flex">{coin.symbol}</div>
+                                    <div className="w-full text-[12px] font-bold cursor-pointer flex">{coin.totalBalance}</div>
+                                    <div className="w-full text-[12px] font-bold cursor-pointer flex">{coin.invested}</div>
+                                    <div className="w-full text-[12px] font-bold cursor-pointer flex">{currentPortfolio.toFixed(2)}</div>
                                 </div>
                             )
                         }
