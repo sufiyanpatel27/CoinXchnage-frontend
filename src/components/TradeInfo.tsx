@@ -67,7 +67,13 @@ export default function TradeInfo() {
 
     const handleBuyCoin = () => {
 
-        if (totalAmount < userInfo.userInfo.balance) {
+        if (totalAmount > userInfo.userInfo.balance) {
+            alert("Insufficient Balance!")
+        } else if(totalAmount <= 0 || coinAmount <= 0) {
+            alert("Invalid Coin Amount or Total Amount!")
+        }
+        
+        else {
             console.log("buying ", currCoin.symbol, " coin")
             if (confirm("Do you want to proceed the Transaction?")) {
                 axios.post(base_url + 'buyCoin/' + userInfo.userInfo.userId,
@@ -83,9 +89,8 @@ export default function TradeInfo() {
             } else {
                 console.log("transactino canceled")
             }
-        } else {
-            alert("Insufficient Balance!")
         }
+
 
     }
 
