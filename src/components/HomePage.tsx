@@ -6,14 +6,13 @@ import Navbar from "./Navbar";
 import TradeInfo from "./TradeInfo";
 import { useAuth } from "../hooks/useAuth";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../app/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../app/store";
 import { setUserInfo } from "../feature/coin/userSlice";
 
 
 export default function HomePage() {
 
-    const userInfo = useSelector((state: RootState) => state.userInfo);
     const dispatch = useDispatch<AppDispatch>();
 
 

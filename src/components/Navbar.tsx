@@ -9,7 +9,7 @@ import logout from '../assets/logout.svg';
 import { useAuth } from '../hooks/useAuth';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setUserInfo } from '../feature/coin/userSlice';
 import { AppDispatch } from '../app/store';
 
@@ -17,7 +17,7 @@ import { AppDispatch } from '../app/store';
 export default function Navbar({ mode, handleTheme, activeTab }: { mode: boolean, handleTheme: () => void, activeTab: string }) {
     let navigate = useNavigate();
     const { email, signOut } = useAuth();
-    const [loggedIn, setLoggedIn] = useState(email ? false : true);
+    const [loggedIn] = useState(email ? false : true);
     const [userSettings, setUserSettings] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 

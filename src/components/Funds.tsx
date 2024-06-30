@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useAuth } from '../hooks/useAuth';
 import Navbar from './Navbar';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 
 export default function Funds() {
-    const userInfo = useSelector((state: RootState) => state.userInfo);
+    const userInfo:any = useSelector((state: RootState) => state.userInfo);
     const allCoins = useSelector((state: RootState) => state.coin.allCoins);
 
     const [mode, setMode] = useState(true);
@@ -25,7 +24,7 @@ export default function Funds() {
         let tempInvestedValue = 0;
         let tempTotalPortfolio = 0;
 
-        userInfo.userInfo.holdings?.forEach((coin) => {
+        userInfo.userInfo.holdings?.forEach((coin: any) => {
             const coinInfo = allCoins.find((obj) => obj.symbol === coin.symbol);
             const coinPrice = coinInfo.data[coinInfo.data.length - 1].close;
             const currentPortfolio = coin.totalBalance * coinPrice;
@@ -126,7 +125,7 @@ export default function Funds() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {userInfo.userInfo.name && userInfo.userInfo.holdings.map((coin, index) => {
+                                    {userInfo.userInfo.name && userInfo.userInfo.holdings.map((coin: any, index: number) => {
 
                                         const coinInfo = allCoins.find((obj) => obj.symbol === coin.symbol);
                                         const coinPrice = coinInfo.data[coinInfo.data.length - 1].close;
@@ -143,7 +142,7 @@ export default function Funds() {
                                                     <h2 className='font-bold'>{coin.name}</h2>
                                                     <h2 className='font-thin pt-1 text-sm text-[#ABB1BF]'>{coin.symbol}</h2>
                                                 </td>
-                                                <td className="px-2 sm:px-6 py-4 whitespace-nowrap">{coin.totalBalance} {coin.symbol}</td>
+                                                <td className="px-2 sm:px-6 py-4 whitespace-nowrap">{coin.totalBalance.toFixed(2)} {coin.symbol}</td>
                                                 <td className="px-2 sm:px-6 py-4 whitespace-nowrap">₹{coin.invested}</td>
                                                 <td className="px-2 sm:px-6 py-4 whitespace-nowrap">₹{currentPortfolio.toFixed(2)}</td>
                                                 <td className={`px-2 sm:px-6 py-4 whitespace-nowrap ${trade === 'profit' ? 'text-[#66C37B]' : 'text-[#F6685E]'}`}>

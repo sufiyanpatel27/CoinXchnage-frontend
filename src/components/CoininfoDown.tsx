@@ -34,7 +34,7 @@ export default function CoininfoDown() {
                     </div>
                 </div>
                 {currCoin.name &&
-                    currCoin.trades.map((trade, i) => {
+                    currCoin.trades.map((_trade:any, i: number) => {
                         if (i < 8) {
                             const coinBought = currCoin.trades[currCoin.trades.length - 1 - i].bought;
                             const coinSold = currCoin.trades[currCoin.trades.length - 1 - i].sold;
@@ -88,7 +88,7 @@ export default function CoininfoDown() {
                     <div className="w-full justify-center text-[10px] font-semibold cursor-pointer text-[#9EB1BF] flex">TIME</div>
                 </div>
                 {currCoin.name &&
-                    currCoin.data.map((data, i) => {
+                    currCoin.data.map((_data: any, i: number) => {
                         if (i < 8) {
                             const coinBought = currCoin.trades[currCoin.trades.length - 1 - i].bought;
                             const coinSold = currCoin.trades[currCoin.trades.length - 1 - i].sold;

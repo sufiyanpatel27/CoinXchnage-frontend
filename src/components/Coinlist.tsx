@@ -39,7 +39,9 @@ export default function Coinlist() {
         high: number;
     }
     interface Coin {
+        _id: number;
         name: string;
+        symbol: string;
         data: Array<dataObject>;
     }
 

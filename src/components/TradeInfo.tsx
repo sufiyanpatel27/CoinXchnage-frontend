@@ -16,9 +16,9 @@ export default function TradeInfo() {
 
     const currCoin: any = useSelector((state: RootState) => state.coin.currCoin);
 
-    const allCoins = useSelector((state: RootState) => state.coin.allCoins);
+    const allCoins: any = useSelector((state: RootState) => state.coin.allCoins);
 
-    const userInfo = useSelector((state: RootState) => state.userInfo);
+    const userInfo: any = useSelector((state: RootState) => state.userInfo);
 
 
     let coinPrice: number = 0;
@@ -48,7 +48,7 @@ export default function TradeInfo() {
 
     const { email } = useAuth();
 
-    const [loggedIn, setLoggedIn] = useState(email ? false : true)
+    const [loggedIn] = useState(email ? false : true)
 
     const [activeTab, setActiveTab] = useState('buy');
 
@@ -190,20 +190,20 @@ export default function TradeInfo() {
                     <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">PORTFOLIO</div>
                 </div>
                 {activeOrder == "open" &&
-                    userInfo.userInfo.holdings?.map((coin) => {
+                    userInfo.userInfo.holdings?.map((coin: any) => {
 
                         if (allCoins[0]) {
 
 
-                            const coinInfo = allCoins.find((obj) => obj.symbol === coin.symbol);
+                            const coinInfo = allCoins.find((obj: any) => obj.symbol === coin.symbol);
                             const coinPrice = coinInfo.data[coinInfo.data.length - 1].close;
                             const currentPortfolio = coin.totalBalance * coinPrice;
 
-                            const difference = Math.abs(coin.invested - currentPortfolio);
-                            const average = (coin.invested + currentPortfolio) / 2;
-                            const percentageDiff = (difference / average) * 100;
+                            // const difference = Math.abs(coin.invested - currentPortfolio);
+                            // const average = (coin.invested + currentPortfolio) / 2;
+                            // const percentageDiff = (difference / average) * 100;
                             const trade = coin.invested < currentPortfolio ? "profit" : "loss";
-                            const allTimeGains = percentageDiff.toFixed(2);
+                            // const allTimeGains = percentageDiff.toFixed(2);
 
                             return (
                                 <div key={coin.symbol} className={`flex justify-between items-center h-12 pl-2 text-white ${trade === "profit" ? 'bg-[rgba(30,55,50,1.0)] border-l-4 border-green-400' : 'bg-[rgba(62,31,39,1.0)] border-l-4 border-red-400'}`}>

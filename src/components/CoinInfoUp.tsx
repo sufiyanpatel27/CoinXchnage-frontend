@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import star from '../assets/star.svg'
 import maximize from '../assets/maximize.svg'
 import formula from '../assets/formula.svg'
@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 import { createChart, ColorType, CrosshairMode } from "lightweight-charts";
 import axios from 'axios';
-import { setCoins } from '../feature/coin/coinSlice';
 
 
 export default function CoinInfoUp() {
@@ -65,23 +64,26 @@ export default function CoinInfoUp() {
                 let currCoinData = `O: ${open} H: ${high} L: ${low} C: ${close}`;
 
                 const legend = document.createElement('div');
-                legend.style = `color: #9EB1BF; display: flex; position: absolute; left: 12px; top: 12px; z-index: 1; font-size: 14px; font-family: sans-serif; line-height: 18px; font-weight: 300;`;
+                legend.setAttribute('style', `color: #9EB1BF; display: flex; position: absolute; left: 12px; top: 12px; z-index: 1; font-size: 14px; font-family: sans-serif; line-height: 18px; font-weight: 300;`);
                 body.appendChild(legend);
+
 
                 const firstRow = document.createElement('div');
                 firstRow.innerHTML = symbolName;
-                firstRow.style = 'padding-right: 10px; font-weight: semibold';
+                firstRow.style.paddingRight = '10px';
+                firstRow.style.fontWeight = 'bold'; // Note: Corrected 'semibold' to 'bold' for correct CSS value
                 legend.appendChild(firstRow);
 
                 const secondElement = document.createElement('div');
                 secondElement.innerHTML = timeFrame;
-                secondElement.style = 'padding-right: 10px';
+                secondElement.style.paddingRight = '10px'; // Set padding-right using style property
                 legend.appendChild(secondElement);
 
                 const thirdElement = document.createElement('div');
                 thirdElement.innerHTML = currCoinData;
-                thirdElement.style = '';
+                // No need to set an empty style, you can skip this line
                 legend.appendChild(thirdElement);
+
 
                 chart.subscribeCrosshairMove(param => {
                     let open = currCoin.data[currCoin.data.length - 1].open
@@ -89,7 +91,7 @@ export default function CoinInfoUp() {
                     let low = currCoin.data[currCoin.data.length - 1].low
                     let close = currCoin.data[currCoin.data.length - 1].close
                     if (param.time) {
-                        param.seriesData.forEach((value) => {
+                        param.seriesData.forEach((value: any) => {
                             open = value.open;
                             high = value.high;
                             low = value.low;
@@ -107,7 +109,7 @@ export default function CoinInfoUp() {
                     console.log(currCoin._id)
                     axios.get(base_url + 'coins/' + currCoin._id)
                         .then((res) => res.data.data[res.data.data.length - 1])
-                        .then((res) => {candlestickSeries.update(res)})
+                        .then((res) => { candlestickSeries.update(res) })
                 }, 60000)
                 chart.timeScale().scrollToPosition(5, true)
                 chart.timeScale().applyOptions({ timeVisible: true })
