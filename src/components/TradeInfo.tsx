@@ -184,7 +184,7 @@ export default function TradeInfo() {
                     <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">PORTFOLIO</div>
                 </div>
 
-                {activeOrder == "open" && userInfo.userInfo.name &&
+                {activeOrder == "open" && loggedIn &&
                     userInfo.userInfo.holdings.map((coin) => {
 
                         if (allCoins[0]) {
