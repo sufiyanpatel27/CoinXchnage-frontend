@@ -89,7 +89,7 @@ export default function Coinlist() {
                     <div className="w-full text-[10px] font-semibold cursor-pointer text-[#9EB1BF] flex justify-end">Change</div>
                 </div>
                 {allCoins.map((coin: Coin) => (
-                    <div onClick={() => handleCoinSelect(coin)} className="h-12 flex justify-between items-center border-b-2 px-4 border-[#2D3446] cursor-pointer hover:bg-[#212f57]">
+                    <div key={coin._id} onClick={() => handleCoinSelect(coin)} className="h-12 flex justify-between items-center border-b-2 px-4 border-[#2D3446] cursor-pointer hover:bg-[#212f57]">
                         <div className="flex justify-center items-center">
                             <div className="mr-1 font-serif w-4 h-4 text-sm ">{coin.symbol[0]}</div>
                             <div>

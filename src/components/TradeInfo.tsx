@@ -195,7 +195,7 @@ export default function TradeInfo() {
                             const allTimeGains = percentageDiff.toFixed(2);
 
                             return (
-                                <div className={`flex justify-between items-center h-12 pl-2 text-white ${trade === "profit" ? 'bg-[rgba(30,55,50,1.0)] border-l-4 border-green-400' : 'bg-[rgba(62,31,39,1.0)] border-l-4 border-red-400'}`}>
+                                <div key={coin.symbol} className={`flex justify-between items-center h-12 pl-2 text-white ${trade === "profit" ? 'bg-[rgba(30,55,50,1.0)] border-l-4 border-green-400' : 'bg-[rgba(62,31,39,1.0)] border-l-4 border-red-400'}`}>
                                     <div className="w-full text-[12px] font-bold cursor-pointer flex">{coin.symbol}</div>
                                     <div className="w-full text-[12px] font-bold cursor-pointer flex">{coin.totalBalance}</div>
                                     <div className="w-full text-[12px] font-bold cursor-pointer flex">{coin.invested}</div>
@@ -244,6 +244,7 @@ export default function TradeInfo() {
                                         <input
                                             type="text"
                                             value={coinPrice}
+                                            readOnly
                                             className="bg-[#2D3446] text-white font-bold focus:outline-none w-[90%] px-4 py-2"
                                         />
                                     </div>
@@ -259,7 +260,7 @@ export default function TradeInfo() {
                                         <input
                                             type="number"
                                             value={coinAmount}
-                                            defaultValue={0}
+                                            // defaultValue={0}
                                             onChange={(e) => handleCoinAmountChange(e.target.value)}
                                             className="bg-[#2D3446] text-white font-bold focus:outline-none w-[90%] px-4 py-2"
                                         />
@@ -297,6 +298,7 @@ export default function TradeInfo() {
                                         <input
                                             type="text"
                                             value={coinPrice}
+                                            readOnly
                                             className="bg-[#2D3446] text-white font-bold focus:outline-none w-[90%] px-4 py-2"
                                         />
                                     </div>

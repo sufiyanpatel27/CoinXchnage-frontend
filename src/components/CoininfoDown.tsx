@@ -44,7 +44,7 @@ export default function CoininfoDown() {
                             const lowValue = currCoin.data[currCoin.data.length - 1 - i].low;
 
                             return (
-                                <div className="flex h-[27px]">
+                                <div key={i} className="flex h-[27px]">
                                     <div className="flex w-[50%] h-full px-4" style={{
                                         background: `linear-gradient(to left, rgba(30,55,50,1.0) ${coinBoughtStyle}%, transparent ${coinBoughtStyle}%)`,
                                     }}>
@@ -115,7 +115,7 @@ export default function CoininfoDown() {
                             const time = new Date(tradeTime * 1000).toLocaleTimeString().split(" ")[0];
 
                             return (
-                                <div className="flex h-[27px] justify-center items-center" style={{ backgroundColor: `${style}` }}>
+                                <div key={i} className="flex h-[27px] justify-center items-center" style={{ backgroundColor: `${style}` }}>
                                     <div className="w-full justify-center items-center text-[12px] font-semibold cursor-pointer flex" style={{ color: `${textStyle}` }}>
                                         {textStyle == "#66C37B" &&
                                             <img src={arrow_up_green} alt="Logo" className='w-[14px]' />

@@ -13,13 +13,8 @@ const userInfoSlice = createSlice({
     initialState,
     reducers: {
         setUserInfo: (state, action: PayloadAction<any[]>) => {
-            console.log(state)
-            console.log(action.payload)
             state.userInfo = action.payload;
         },
-        // setCurrCoin: (state, action: PayloadAction<Object>) => {
-        //   state.currCoin = action.payload;
-        // }
     },
 });
 

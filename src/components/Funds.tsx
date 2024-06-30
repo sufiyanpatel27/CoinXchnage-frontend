@@ -87,10 +87,10 @@ export default function Funds() {
                             </div>
                         </div>
                         <div className='w-full sm:w-1/2 lg:w-[24%] rounded-md bg-[#1E2433] px-4 py-4 flex justify-between items-center'>
-                            <h2 className='text-[#cdd2df] flex'>
+                            <div className='text-[#cdd2df] flex'>
                                 All time Gains
                                 <h2 className={`font-bold text-[12px] ml-2 px-1 ${trade === 'profit' ? 'text-[#66C37B]' : 'text-[#F6685E] bg-[#f6685e28]'}`}>{trade}{allTimeGains.toFixed(2)}%</h2>
-                            </h2>
+                            </div>
                             <h2 className={`font-bold ${trade === 'profit' ? 'text-[#66C37B]' : 'text-[#F6685E]'}`}>${(cryptoHoldings - investedValue).toFixed(2)}</h2>
                         </div>
                         <div className='w-full sm:w-1/2 lg:w-[24%] rounded-md bg-[#1E2433] px-4 py-4 flex justify-between items-center'>
