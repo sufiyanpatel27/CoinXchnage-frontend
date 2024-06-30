@@ -17,18 +17,18 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const base_url = import.meta.env.VITE_BASE_URL || "http://localhost:5000/";
 
-  const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
-  const [email, setEmail] = useState<string | null>(localStorage.getItem('email'));
-  const [userId, setUserId] = useState<string | null>(localStorage.getItem('userId'));
+  const [token, setToken] = useState<string | null>(localStorage.getItem('CoinXchangetoken'));
+  const [email, setEmail] = useState<string | null>(localStorage.getItem('CoinXchangeemail'));
+  const [userId, setUserId] = useState<string | null>(localStorage.getItem('CoinXchangeuserId'));
 
   const handleAuth = (token: string) => {
     setToken(token);
-    localStorage.setItem('token', token);
+    localStorage.setItem('CoinXchangetoken', token);
     const decodedToken: any = jwtDecode(token);
     setEmail(decodedToken.email);
     setUserId(decodedToken.userId);
-    localStorage.setItem('email', decodedToken.email);
-    localStorage.setItem('userId', decodedToken.userId);
+    localStorage.setItem('CoinXchangeemail', decodedToken.email);
+    localStorage.setItem('CoinXchangeuserId', decodedToken.userId);
   };
 
   const signUp = async (email: string, name: string, password: string) => {
@@ -44,8 +44,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const signOut = () => {
     setToken(null);
     setEmail(null);
-    localStorage.removeItem('token');
-    localStorage.removeItem('email');
+    localStorage.removeItem('CoinXchangetoken');
+    localStorage.removeItem('CoinXchangeemail');
   };
 
   return (
