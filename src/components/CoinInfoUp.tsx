@@ -102,15 +102,16 @@ export default function CoinInfoUp() {
 
 
 
-                setInterval(async () => {
-                    axios.get(base_url + 'coins')
-                        .then((res) => res.data.find((obj: { _id: any; }) => obj._id === currCoin._id))
-                        .then((res) => res.data[res.data.length - 1])
-                        .then((res) => candlestickSeries.update(res))
-                }, 10000)
-
+                const interval = setInterval(async () => {
+                    console.log(currCoin._id)
+                    axios.get(base_url + 'coins/' + currCoin._id)
+                        .then((res) => res.data.data[res.data.data.length - 1])
+                        .then((res) => {candlestickSeries.update(res)})
+                }, 60000)
                 chart.timeScale().scrollToPosition(5, true)
                 chart.timeScale().applyOptions({ timeVisible: true })
+                return () => clearInterval(interval);
+
 
             }
         }
