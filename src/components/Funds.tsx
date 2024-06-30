@@ -20,11 +20,12 @@ export default function Funds() {
     const [trade, setTrade] = useState("");
 
     useEffect(() => {
+        document.title = "CoinXchange";
         let tempCryptoHoldings = 0;
         let tempInvestedValue = 0;
         let tempTotalPortfolio = 0;
 
-        userInfo.userInfo.holdings.forEach((coin) => {
+        userInfo.userInfo.holdings?.forEach((coin) => {
             const coinInfo = allCoins.find((obj) => obj.symbol === coin.symbol);
             const coinPrice = coinInfo.data[coinInfo.data.length - 1].close;
             const currentPortfolio = coin.totalBalance * coinPrice;
@@ -74,28 +75,28 @@ export default function Funds() {
                     <div className='flex flex-wrap justify-center gap-3 w-full mt-10 text-sm'>
                         <div className='w-full sm:w-1/2 lg:w-[24%] rounded-md bg-[#1E2433] px-4 py-4 flex flex-col gap-2 justify-center'>
                             <h2 className='font-bold text-sm'>Total portfolio value</h2>
-                            <h2 className='font-bold text-xl'>${totalPortfolio.toFixed(2)}</h2>
+                            <h2 className='font-bold text-xl'>₹{totalPortfolio.toFixed(2)}</h2>
                         </div>
                         <div className='w-full sm:w-1/2 lg:w-[24%] rounded-md bg-[#1E2433] px-4 py-4 flex flex-col gap-2 justify-center'>
                             <div className='flex justify-between'>
                                 <h2 className='text-[#cdd2df]'>Crypto Holdings</h2>
-                                <h2 className='font-bold'>${cryptoHoldings.toFixed(2)}</h2>
+                                <h2 className='font-bold'>₹{cryptoHoldings.toFixed(2)}</h2>
                             </div>
                             <div className='flex justify-between'>
                                 <h2 className='text-[#cdd2df]'>Invested Value</h2>
-                                <h2 className='font-bold'>${investedValue.toFixed(2)}</h2>
+                                <h2 className='font-bold'>₹{investedValue.toFixed(2)}</h2>
                             </div>
                         </div>
                         <div className='w-full sm:w-1/2 lg:w-[24%] rounded-md bg-[#1E2433] px-4 py-4 flex justify-between items-center'>
                             <div className='text-[#cdd2df] flex'>
                                 All time Gains
-                                <h2 className={`font-bold text-[12px] ml-2 px-1 ${trade === 'profit' ? 'text-[#66C37B]' : 'text-[#F6685E] bg-[#f6685e28]'}`}>{trade}{allTimeGains.toFixed(2)}%</h2>
+                                <h2 className={`font-bold text-[12px] ml-2 px-1 ${trade === '+' ? 'text-[#66C37B]' : 'text-[#F6685E] bg-[#f6685e28]'}`}>{trade}{allTimeGains.toFixed(2)}%</h2>
                             </div>
-                            <h2 className={`font-bold ${trade === 'profit' ? 'text-[#66C37B]' : 'text-[#F6685E]'}`}>${(cryptoHoldings - investedValue).toFixed(2)}</h2>
+                            <h2 className={`font-bold ${trade === '+' ? 'text-[#66C37B]' : 'text-[#F6685E]'}`}>₹{(cryptoHoldings - investedValue).toFixed(2)}</h2>
                         </div>
                         <div className='w-full sm:w-1/2 lg:w-[24%] rounded-md bg-[#1E2433] px-4 py-4 flex justify-between items-center'>
                             <h2 className='text-[#cdd2df]'>INR Balance</h2>
-                            <h2 className='font-bold'>${userInfo.userInfo.balance}</h2>
+                            <h2 className='font-bold'>₹{userInfo.userInfo.balance}</h2>
                         </div>
                     </div>
 
@@ -111,7 +112,7 @@ export default function Funds() {
                                             Total Balance
                                         </th>
                                         <th scope="col" className="px-2 sm:px-6 py-3 text-left text-[10px] font-medium uppercase tracking-wider">
-                                            Invested INR
+                                            invested inr
                                         </th>
                                         <th scope="col" className="px-2 sm:px-6 py-3 text-left text-[10px] font-medium uppercase tracking-wider">
                                             Current Portfolio
@@ -125,7 +126,7 @@ export default function Funds() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {userInfo.userInfo.holdings.map((coin, index) => {
+                                    {userInfo.userInfo.name && userInfo.userInfo.holdings.map((coin, index) => {
 
                                         const coinInfo = allCoins.find((obj) => obj.symbol === coin.symbol);
                                         const coinPrice = coinInfo.data[coinInfo.data.length - 1].close;
@@ -143,8 +144,8 @@ export default function Funds() {
                                                     <h2 className='font-thin pt-1 text-sm text-[#ABB1BF]'>{coin.symbol}</h2>
                                                 </td>
                                                 <td className="px-2 sm:px-6 py-4 whitespace-nowrap">{coin.totalBalance} {coin.symbol}</td>
-                                                <td className="px-2 sm:px-6 py-4 whitespace-nowrap">${coin.invested}</td>
-                                                <td className="px-2 sm:px-6 py-4 whitespace-nowrap">${currentPortfolio.toFixed(2)}</td>
+                                                <td className="px-2 sm:px-6 py-4 whitespace-nowrap">₹{coin.invested}</td>
+                                                <td className="px-2 sm:px-6 py-4 whitespace-nowrap">₹{currentPortfolio.toFixed(2)}</td>
                                                 <td className={`px-2 sm:px-6 py-4 whitespace-nowrap ${trade === 'profit' ? 'text-[#66C37B]' : 'text-[#F6685E]'}`}>
                                                     <h2>{(currentPortfolio - coin.invested).toFixed(2)}</h2>
                                                     <h2 className='font-bold pt-1 text-[12px]'>{trade === "profit" ? "+" : "-"} {allTimeGains}%</h2>

@@ -53,7 +53,7 @@ export default function CoininfoDown() {
                                             className="w-full hover:text-white justify-end items-center text-[12px] font-semibold cursor-pointer text-[#66C37B] flex"
 
                                         >
-                                            ${highValue}
+                                            {highValue}
                                         </div>
                                     </div>
                                     <div className="flex w-[50%] px-4" style={{
@@ -63,7 +63,8 @@ export default function CoininfoDown() {
                                             className="w-full hover:text-white justify-start items-center text-[12px] font-semibold cursor-pointer text-[#F6685E] flex"
 
                                         >
-                                            ${lowValue}
+
+                                            {lowValue}
                                         </div>
                                         <div className="w-full pr-20 justify-start items-center text-[12px] font-semibold cursor-pointer flex">{coinSold / currCoin.users}</div>
                                     </div>

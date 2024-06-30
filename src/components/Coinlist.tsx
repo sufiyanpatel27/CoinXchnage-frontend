@@ -6,6 +6,8 @@ import { setCoins, setCurrCoin } from '../feature/coin/coinSlice';
 import up from '../assets/up.svg'
 import down from '../assets/down.svg'
 
+import '../App.css'
+
 export default function Coinlist() {
 
     const base_url = import.meta.env.VITE_BASE_URL || "http://localhost:5000/";
@@ -88,6 +90,11 @@ export default function Coinlist() {
                     <div className="w-full text-[10px] font-semibold cursor-pointer text-[#9EB1BF] flex justify-start">Vol</div>
                     <div className="w-full text-[10px] font-semibold cursor-pointer text-[#9EB1BF] flex justify-end">Change</div>
                 </div>
+                {allCoins.length === 0 &&
+                <div className="w-full pt-12 lg:pt-52 flex justify-center items-center">
+                    <div className="loading-spinner"></div>
+                </div>
+                }
                 {allCoins.map((coin: Coin) => (
                     <div key={coin._id} onClick={() => handleCoinSelect(coin)} className="h-12 flex justify-between items-center border-b-2 px-4 border-[#2D3446] cursor-pointer hover:bg-[#212f57]">
                         <div className="flex justify-center items-center">
@@ -108,7 +115,7 @@ export default function Coinlist() {
 
                             </div>
                         </div>
-                        <div className="font-bold text-[12px]">${coin.data[coin.data.length - 1].close}</div>
+                        <div className="font-bold text-[12px]">₹ {coin.data[coin.data.length - 1].close}</div>
                     </div>
                 ))}
             </div>

@@ -69,10 +69,10 @@ export default function TradeInfo() {
 
         if (totalAmount > userInfo.userInfo.balance) {
             alert("Insufficient Balance!")
-        } else if(totalAmount <= 0 || coinAmount <= 0) {
+        } else if (totalAmount <= 0 || coinAmount <= 0) {
             alert("Invalid Coin Amount or Total Amount!")
         }
-        
+
         else {
             console.log("buying ", currCoin.symbol, " coin")
             if (confirm("Do you want to proceed the Transaction?")) {
@@ -84,7 +84,10 @@ export default function TradeInfo() {
                         totalAmount: totalAmount
                     }
                 )
-                    .then((res) => dispatch(setUserInfo(res.data.newUserInfo)))
+                    .then((res) => {
+                        dispatch(setUserInfo(res.data.newUserInfo));
+                        alert(`${currCoin.name} bought successfully of ₹${totalAmount}`)
+                    })
                     .catch((err) => alert(err.response.data.error))
             } else {
                 console.log("transactino canceled")
@@ -105,7 +108,10 @@ export default function TradeInfo() {
                     totalAmount: totalAmount
                 }
             )
-                .then((res) => dispatch(setUserInfo(res.data.newUserInfo)))
+                .then((res) => {
+                    dispatch(setUserInfo(res.data.newUserInfo));
+                    alert(`${currCoin.name} sold successfully of ₹${totalAmount}`)
+                })
                 .catch((err) => alert(err.response.data.message))
         } else {
             console.log("transactino canceled")
@@ -116,7 +122,7 @@ export default function TradeInfo() {
 
 
     return (
-        <div className="flex flex-col-reverse lg:flex-col justify-between mr-2 m-1 lg:max-w-[350px]">
+        <div className="flex flex-col-reverse lg:flex-col justify-between mr-2 m-1 lg:max-w-[330px]">
             <div className="bg-white dark:bg-[#1E2433] mb-1 rounded h-[300px] lg:h-[60%] flex flex-col text-[#9EB1BF]">
                 <div className="flex justify-between">
                     <button
@@ -144,7 +150,7 @@ export default function TradeInfo() {
                                     }`}
                             />
                         </div>
-                        <h2 className="text-[12px] pl-2">BTC-INR Orders</h2>
+                        <h2 className="text-[12px] pl-2">{currCoin.symbol}-INR Orders</h2>
                     </div>
                 }
                 {activeOrder == "completed" &&
@@ -160,7 +166,7 @@ export default function TradeInfo() {
                                         }`}
                                 />
                             </div>
-                            <h2 className="text-[12px] pl-2">BTC-INR Orders</h2>
+                            <h2 className="text-[12px] pl-2">{currCoin.symbol}-INR Orders</h2>
                         </div>
                         <div className="flex">
                             <div
@@ -183,9 +189,8 @@ export default function TradeInfo() {
                     <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">INVESTED INR</div>
                     <div className="w-full text-[10px] cursor-pointer text-[#9EB1BF] flex">PORTFOLIO</div>
                 </div>
-
-                {activeOrder == "open" && !loggedIn &&
-                    userInfo.userInfo.holdings.map((coin) => {
+                {activeOrder == "open" &&
+                    userInfo.userInfo.holdings?.map((coin) => {
 
                         if (allCoins[0]) {
 
@@ -203,7 +208,7 @@ export default function TradeInfo() {
                             return (
                                 <div key={coin.symbol} className={`flex justify-between items-center h-12 pl-2 text-white ${trade === "profit" ? 'bg-[rgba(30,55,50,1.0)] border-l-4 border-green-400' : 'bg-[rgba(62,31,39,1.0)] border-l-4 border-red-400'}`}>
                                     <div className="w-full text-[12px] font-bold cursor-pointer flex">{coin.symbol}</div>
-                                    <div className="w-full text-[12px] font-bold cursor-pointer flex">{coin.totalBalance}</div>
+                                    <div className="w-full text-[12px] font-bold cursor-pointer flex">{coin.totalBalance.toFixed(2)}</div>
                                     <div className="w-full text-[12px] font-bold cursor-pointer flex">{coin.invested}</div>
                                     <div className="w-full text-[12px] font-bold cursor-pointer flex">{currentPortfolio.toFixed(2)}</div>
                                 </div>
@@ -234,7 +239,7 @@ export default function TradeInfo() {
                     <div className="flex flex-col items-center mt-20 gap-2">
                         <button onClick={() => navigate('/signin')} className="text-[12px] font-bold w-[60%] bg-[#66C37B] px-6 py-3 rounded-md text-white">LOGIN</button>
                         <span className="text-white text-[12px]">OR</span>
-                        <button onClick={() => navigate('/signup')} className="text-[12px] font-bold w-[60%] bg-transparent border border-[#66C37B] text-white px-6 py-3 rounded-md">CREATE AN ACCOUNT</button>
+                        <button onClick={() => navigate('/signup')} className="text-[12px] font-bold w-[60%] border-[#66C37B] px-6 py-3 rounded-md text-white bg-transparent border">CREATE AN ACCOUNT</button>
                     </div>
                 }
                 {!loggedIn &&
@@ -260,7 +265,7 @@ export default function TradeInfo() {
                                 <div className="flex justify-between items-center bg-[#2D3446] rounded-md">
                                     <div className="w-[20%]">
                                         <label className="block text-[11px] text-end">AMOUNT</label>
-                                        <h2 className="text-[11px] text-end font-bold">BTC</h2>
+                                        <h2 className="text-[11px] text-end font-bold">{currCoin.symbol}</h2>
                                     </div>
                                     <div className="flex items-center w-[80%] ">
                                         <input
@@ -314,7 +319,7 @@ export default function TradeInfo() {
                                 <div className="flex justify-between items-center bg-[#2D3446] rounded-md">
                                     <div className="w-[20%]">
                                         <label className="block text-[11px] text-end">AMOUNT</label>
-                                        <h2 className="text-[11px] text-end font-bold">BTC</h2>
+                                        <h2 className="text-[11px] text-end font-bold">{currCoin.symbol}</h2>
                                     </div>
                                     <div className="flex items-center w-[80%] ">
                                         <input

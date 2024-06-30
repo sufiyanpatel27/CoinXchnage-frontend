@@ -9,6 +9,10 @@ import logout from '../assets/logout.svg';
 import { useAuth } from '../hooks/useAuth';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { setUserInfo } from '../feature/coin/userSlice';
+import { AppDispatch } from '../app/store';
+
 
 export default function Navbar({ mode, handleTheme, activeTab }: { mode: boolean, handleTheme: () => void, activeTab: string }) {
     let navigate = useNavigate();
@@ -17,8 +21,13 @@ export default function Navbar({ mode, handleTheme, activeTab }: { mode: boolean
     const [userSettings, setUserSettings] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+    const dispatch = useDispatch<AppDispatch>();
+
+
     const handleLogOut = () => {
         signOut();
+        const newUserInfo = {};
+        dispatch(setUserInfo(newUserInfo))
         navigate('/signin');
     };
 

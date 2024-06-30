@@ -28,6 +28,7 @@ export default function HomePage() {
 
 
     useEffect(() => {
+        document.title = "CoinXchange";
         if (email) {
             axios.get(base_url + 'userinfo/' + userId, {
                 headers: {

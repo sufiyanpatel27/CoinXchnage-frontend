@@ -16,14 +16,12 @@ import Funds from './components/Funds'
 
 
 const Home = () => {
-  const { email, signOut } = useAuth();
 
   return (
     <div className="p-8 rounded-lg shadow-md bg-white max-w-md mx-auto text-center">
       <h1 className="text-2xl font-bold">Home - Protected</h1>
-      <p className="mt-4 text-gray-700">Welcome, {email}</p>
+      <p className="mt-4 text-gray-700">Welcome</p>
       <button
-        onClick={signOut}
         className="mt-6 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
       >
         Logout
@@ -40,9 +38,9 @@ export default function App() {
         <Routes>
           <Route path="/exchange" element={<HomePage />} />
           <Route path="/funds" element={<Funds />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/" element={<PrivateRoute> <Home /> </PrivateRoute>} />
+          <Route path="/signin" element={<PrivateRoute> <SignIn /> </PrivateRoute>} />
+          <Route path="/signup" element={<PrivateRoute> <SignUp /> </PrivateRoute>} />
+          <Route path="/" element={<HomePage />} />
         </Routes>
       </Router>
     </AuthProvider>

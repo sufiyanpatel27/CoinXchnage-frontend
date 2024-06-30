@@ -17,6 +17,7 @@ export default function CoinInfoUp() {
 
     useEffect(() => {
         if (currCoin.name) {
+            document.title = `CoinXchange - ${currCoin.name}`;
             const chartOptions = {
                 layout: { textColor: '#9EB1BF', background: { type: ColorType.Solid, color: '#1E2433' } }, grid: {
                     vertLines: { color: '#2C3240' },
@@ -141,7 +142,7 @@ export default function CoinInfoUp() {
                 <div className="flex pr-1">
                     <div className="flex pr-4">
                         <div className="text-sm text-[#9EB1BF] pr-2">LAST PRICE</div>
-                        <div className="font-bold text-sm">${lastPrice}</div>
+                        <div className="font-bold text-sm">₹ {lastPrice}</div>
                     </div>
                     <div className='flex'>
                         <img src={star} alt="Logo" className='w-[15px]' />
@@ -181,7 +182,8 @@ export default function CoinInfoUp() {
                     </div>
                 </div>
             </div>
-            <div id='container' className='w-full relative h-[300px] lg:h-full flex justify-center items-center cursor-crosshair'>
+            <div id='container' className='w-full relative h-[300px] lg:h-full flex justify-center items-center cursor-crosshair font-semibold text-xl text-[#9EB1BF]'>
+                select a Coin from the Coin list
             </div>
         </div>
     )
