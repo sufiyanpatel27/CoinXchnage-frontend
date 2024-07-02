@@ -40,16 +40,16 @@ export default function Navbar({ mode, handleTheme, activeTab }: { mode: boolean
     }, [userSettings]);
 
     return (
-        <div className="bg-[#3067F0] dark:bg-[#2D3446] h-[45px] flex justify-between items-center px-4 md:px-8">
+        <div className="bg-primary dark:bg-primary-dark h-[45px] flex justify-between items-center px-4 md:px-8">
             <div className='flex items-center h-full'>
                 <img src={logo} alt="Logo" className='w-24 md:w-36 cursor-pointer' onClick={() => navigate('/')} />
                 <div className='hidden h-full md:flex items-center gap-4 ml-4'>
-                    <div className={`font-bold cursor-pointer hover:bg-gray-800 px-4 h-full flex justify-center items-center ${activeTab === "EXCHANGE" ? 'bg-[#1F2531] border-b-[3px] border-[#FAED9B]' : ''}`}
+                    <div className={`font-bold cursor-pointer hover:bg-gray-800 px-4 h-full flex justify-center items-center ${activeTab === "EXCHANGE" ? 'dark:bg-[#1F2531] border-b-[3px] border-[#FAED9B]' : ''}`}
                         onClick={() => navigate('/exchange')}>EXCHANGE</div>
-                    <div className={`font-bold cursor-pointer hover:bg-gray-800 px-4 h-full flex justify-center items-center ${activeTab === "P2P" ? 'bg-[#1F2531] border-b-[3px] border-[#FAED9B]' : ''}`}
+                    <div className={`font-bold cursor-pointer hover:bg-gray-800 px-4 h-full flex justify-center items-center ${activeTab === "P2P" ? 'dark:bg-[#1F2531] border-b-[3px] border-[#FAED9B]' : ''}`}
                         onClick={() => navigate('/exchange')}>P2P</div>
                     {!loggedIn &&
-                        <div className={`font-bold cursor-pointer hover:bg-gray-800 px-4 h-full flex justify-center items-center ${activeTab === "FUNDS" ? 'bg-[#1F2531] border-b-[3px] border-[#FAED9B]' : ''}`}
+                        <div className={`font-bold cursor-pointer hover:bg-gray-800 px-4 h-full flex justify-center items-center ${activeTab === "FUNDS" ? 'dark:bg-[#1F2531] border-b-[3px] border-[#FAED9B]' : ''}`}
                             onClick={() => navigate('/funds')}>FUNDS</div>
                     }
                 </div>

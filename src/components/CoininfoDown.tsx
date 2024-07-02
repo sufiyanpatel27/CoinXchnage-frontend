@@ -102,12 +102,12 @@ export default function CoininfoDown() {
                             if (coinBought > coinSold) {
                                 price = highValue
                                 volume = coinBought / currCoin.users
-                                style = "rgba(30,55,50,1.0)"
+                                style = "up"
                                 textStyle = "#66C37B"
                             } else {
                                 price = lowValue
                                 volume = coinSold / currCoin.users
-                                style = "rgba(62,31,39, 1.0)"
+                                style = "down"
                                 textStyle = "#F6685E"
                             }
 
@@ -116,7 +116,7 @@ export default function CoininfoDown() {
                             const time = new Date(tradeTime * 1000).toLocaleTimeString().split(" ")[0];
 
                             return (
-                                <div key={i} className="flex h-[27px] justify-center items-center" style={{ backgroundColor: `${style}` }}>
+                                <div key={i} className={`flex h-[27px] justify-center items-center ${style == "up" ? 'dark:bg-[#1E3732] bg-[#DAEFE1]' : 'dark:bg-[#3E1F27]  bg-[#FAE9EA]'}`}>
                                     <div className="w-full justify-center items-center text-[12px] font-semibold cursor-pointer flex" style={{ color: `${textStyle}` }}>
                                         {textStyle == "#66C37B" &&
                                             <img src={arrow_up_green} alt="Logo" className='w-[14px]' />

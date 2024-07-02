@@ -123,16 +123,16 @@ export default function TradeInfo() {
 
     return (
         <div className="flex flex-col-reverse lg:flex-col justify-between mr-2 m-1 lg:max-w-[330px]">
-            <div className="bg-white dark:bg-[#1E2433] mb-1 rounded h-[300px] lg:h-[60%] flex flex-col text-[#9EB1BF]">
+            <div className="bg-secondary dark:bg-secondary-dark mb-1 rounded h-[300px] lg:h-[60%] flex flex-col text-[#9EB1BF]">
                 <div className="flex justify-between">
                     <button
-                        className={`w-full focus:outline-none font-bold text-[11px] px-4 py-2 ${activeOrder === 'open' ? 'bg-[#1E2433] text-white border-t-4 border-[#66C37B] rounded-s-[4px]' : 'bg-[#161D2B] rounded-s-[4px]'}`}
+                        className={`w-full focus:outline-none font-bold text-[11px] px-4 py-2 ${activeOrder === 'open' ? 'dark:bg-[#1E2433] dark:text-white border-t-4 border-[#66C37B] rounded-s-[4px]' : 'dark:bg-[#161D2B] rounded-s-[4px]'}`}
                         onClick={() => setaAtiveOrder('open')}
                     >
                         OPEN ORDERS
                     </button>
                     <button
-                        className={`w-full focus:outline-none font-bold text-[11px] px-4 py-2 ${activeOrder === 'completed' ? 'bg-[#1E2433] text-white border-t-4 border-[#66C37B] rounded-e-[4px]' : 'bg-[#161D2B] rounded-e-[4px]'}`}
+                        className={`w-full focus:outline-none font-bold text-[11px] px-4 py-2 ${activeOrder === 'completed' ? 'dark:bg-[#1E2433] dark:text-white border-t-4 border-[#66C37B] rounded-e-[4px]' : 'dark:bg-[#161D2B] rounded-e-[4px]'}`}
                         onClick={() => setaAtiveOrder('completed')}
                     >
                         COMPLETED ORDERS
@@ -206,7 +206,7 @@ export default function TradeInfo() {
                             // const allTimeGains = percentageDiff.toFixed(2);
 
                             return (
-                                <div key={coin.symbol} className={`flex justify-between items-center h-12 pl-2 text-white ${trade === "profit" ? 'bg-[rgba(30,55,50,1.0)] border-l-4 border-green-400' : 'bg-[rgba(62,31,39,1.0)] border-l-4 border-red-400'}`}>
+                                <div key={coin.symbol} className={`flex justify-between items-center h-12 pl-2 text-black dark:text-white ${trade === "profit" ? 'dark:bg-[rgba(30,55,50,1.0)] bg-[#DAEFE1] border-l-4 border-green-400' : 'dark:bg-[rgba(62,31,39,1.0)] bg-[#FAE9EA] border-l-4 border-red-400'}`}>
                                     <div className="w-full text-[12px] font-bold cursor-pointer flex">{coin.symbol}</div>
                                     <div className="w-full text-[12px] font-bold cursor-pointer flex">{coin.totalBalance.toFixed(2)}</div>
                                     <div className="w-full text-[12px] font-bold cursor-pointer flex">{coin.invested}</div>
@@ -219,16 +219,16 @@ export default function TradeInfo() {
             </div>
 
 
-            <div className="bg-white dark:bg-[#1E2433] h-[300px] lg:h-[40%] mt-1 rounded flex flex-col text-[#9EB1BF]">
+            <div className="bg-secondary dark:bg-secondary-dark h-[300px] lg:h-[40%] mt-1 rounded flex flex-col text-[#9EB1BF]">
                 <div className="flex justify-between border-b-2 border-[#2D3446]">
                     <button
-                        className={`w-full focus:outline-none font-bold text-[11px] px-4 py-2 ${activeTab === 'buy' ? 'bg-[#1E2433] text-white border-t-4 border-[#66C37B] rounded-s-[4px]' : 'bg-[#161D2B] rounded-s-[4px]'}`}
+                        className={`w-full focus:outline-none font-bold text-[11px] px-4 py-2 ${activeTab === 'buy' ? 'dark:bg-[#1E2433] dark:text-white border-t-4 border-[#66C37B] rounded-s-[4px]' : 'dark:bg-[#161D2B] rounded-s-[4px]'}`}
                         onClick={() => setActiveTab('buy')}
                     >
                         BUY
                     </button>
                     <button
-                        className={`w-full focus:outline-none font-bold text-[11px] px-4 py-2 ${activeTab === 'sell' ? 'bg-[#1E2433] text-white border-t-4 border-[#F6685E] rounded-e-[4px]' : 'bg-[#161D2B] rounded-e-[4px]'}`}
+                        className={`w-full focus:outline-none font-bold text-[11px] px-4 py-2 ${activeTab === 'sell' ? 'dark:bg-[#1E2433] dark:text-white border-t-4 border-[#F6685E] rounded-e-[4px]' : 'dark:bg-[#161D2B] rounded-e-[4px]'}`}
                         onClick={() => setActiveTab('sell')}
                     >
                         SELL
@@ -246,7 +246,7 @@ export default function TradeInfo() {
                     <div className="flex flex-col px-2 items-center mt-2 gap-2">
                         {activeTab === "buy" &&
                             <div className="px-3 text-[#9EB1BF] flex flex-col gap-4">
-                                <div className="flex justify-between items-center bg-[#2D3446] rounded-md">
+                                <div className="flex justify-between items-center dark:bg-[#2D3446] rounded-md">
                                     <div className="w-[20%]">
                                         <label className="block text-[11px] text-end">AT PRICE</label>
                                         <h2 className="text-[11px] text-end font-bold">INR</h2>
@@ -256,13 +256,13 @@ export default function TradeInfo() {
                                             type="text"
                                             value={coinPrice}
                                             readOnly
-                                            className="bg-[#2D3446] text-white font-bold focus:outline-none w-[90%] px-4 py-2"
+                                            className="dark:bg-[#2D3446] dark:text-white font-bold focus:outline-none w-[90%] px-4 py-2"
                                         />
                                     </div>
                                     <span className="w-[35%] text-[12px] font-bold text-[#66C37B]">LOWEST PRICE</span>
                                 </div>
 
-                                <div className="flex justify-between items-center bg-[#2D3446] rounded-md">
+                                <div className="flex justify-between items-center dark:bg-[#2D3446] rounded-md">
                                     <div className="w-[20%]">
                                         <label className="block text-[11px] text-end">AMOUNT</label>
                                         <h2 className="text-[11px] text-end font-bold">{currCoin.symbol}</h2>
@@ -273,12 +273,12 @@ export default function TradeInfo() {
                                             value={coinAmount}
                                             // defaultValue={0}
                                             onChange={(e) => handleCoinAmountChange(e.target.value)}
-                                            className="bg-[#2D3446] text-white font-bold focus:outline-none w-[90%] px-4 py-2"
+                                            className="dark:bg-[#2D3446] dark:text-white font-bold focus:outline-none w-[90%] px-4 py-2"
                                         />
                                     </div>
                                 </div>
 
-                                <div className="flex justify-between items-center bg-[#2D3446] rounded-md">
+                                <div className="flex justify-between items-center dark:bg-[#2D3446] rounded-md">
                                     <div className="w-[20%]">
                                         <label className="block text-[11px] text-end">TOTAL</label>
                                         <h2 className="text-[11px] text-end font-bold">INR</h2>
@@ -288,7 +288,7 @@ export default function TradeInfo() {
                                             type="number"
                                             value={totalAmount}
                                             onChange={(e) => handleTotalAmountChange(e.target.value)}
-                                            className="bg-[#2D3446] text-white font-bold focus:outline-none w-[90%] px-4 py-2"
+                                            className="dark:bg-[#2D3446] dark:text-white font-bold focus:outline-none w-[90%] px-4 py-2"
                                         />
                                     </div>
                                 </div>
@@ -300,7 +300,7 @@ export default function TradeInfo() {
 
                         {activeTab === "sell" &&
                             <div className="px-3 text-[#9EB1BF] flex flex-col gap-4">
-                                <div className="flex justify-between items-center bg-[#2D3446] rounded-md">
+                                <div className="flex justify-between items-center dark:bg-[#2D3446] rounded-md">
                                     <div className="w-[20%]">
                                         <label className="block text-[11px] text-end">AT PRICE</label>
                                         <h2 className="text-[11px] text-end font-bold">INR</h2>
@@ -310,13 +310,13 @@ export default function TradeInfo() {
                                             type="text"
                                             value={coinPrice}
                                             readOnly
-                                            className="bg-[#2D3446] text-white font-bold focus:outline-none w-[90%] px-4 py-2"
+                                            className="dark:bg-[#2D3446] dark:text-white font-bold focus:outline-none w-[90%] px-4 py-2"
                                         />
                                     </div>
                                     <span className="w-[35%] text-[12px] font-bold text-[#F6685E]">HIGHEST PRICE</span>
                                 </div>
 
-                                <div className="flex justify-between items-center bg-[#2D3446] rounded-md">
+                                <div className="flex justify-between items-center dark:bg-[#2D3446] rounded-md">
                                     <div className="w-[20%]">
                                         <label className="block text-[11px] text-end">AMOUNT</label>
                                         <h2 className="text-[11px] text-end font-bold">{currCoin.symbol}</h2>
@@ -326,12 +326,12 @@ export default function TradeInfo() {
                                             type="number"
                                             value={coinAmount}
                                             onChange={(e) => handleCoinAmountChange(e.target.value)}
-                                            className="bg-[#2D3446] text-white font-bold focus:outline-none w-[90%] px-4 py-2"
+                                            className="dark:bg-[#2D3446] dark:text-white font-bold focus:outline-none w-[90%] px-4 py-2"
                                         />
                                     </div>
                                 </div>
 
-                                <div className="flex justify-between items-center bg-[#2D3446] rounded-md">
+                                <div className="flex justify-between items-center dark:bg-[#2D3446] rounded-md">
                                     <div className="w-[20%]">
                                         <label className="block text-[11px] text-end">TOTAL</label>
                                         <h2 className="text-[11px] text-end font-bold">INR</h2>
@@ -341,7 +341,7 @@ export default function TradeInfo() {
                                             type="number"
                                             value={totalAmount}
                                             onChange={(e) => handleTotalAmountChange(e.target.value)}
-                                            className="bg-[#2D3446] text-white font-bold focus:outline-none w-[90%] px-4 py-2"
+                                            className="dark:bg-[#2D3446] dark:text-white font-bold focus:outline-none w-[90%] px-4 py-2"
                                         />
                                     </div>
                                 </div>

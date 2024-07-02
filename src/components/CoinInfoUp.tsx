@@ -8,7 +8,7 @@ import { createChart, ColorType, CrosshairMode } from "lightweight-charts";
 import axios from 'axios';
 
 
-export default function CoinInfoUp() {
+export default function CoinInfoUp({mode}: {mode: string}) {
 
     const base_url = import.meta.env.VITE_BASE_URL || "http://localhost:5000/";
 
@@ -18,7 +18,7 @@ export default function CoinInfoUp() {
         if (currCoin.name) {
             document.title = `CoinXchange - ${currCoin.name}`;
             const chartOptions = {
-                layout: { textColor: '#9EB1BF', background: { type: ColorType.Solid, color: '#1E2433' } }, grid: {
+                layout: { textColor: '#9EB1BF', background: { type: ColorType.Solid, color: `${mode}` } }, grid: {
                     vertLines: { color: '#2C3240' },
                     horzLines: { color: '#2C3240' },
                 },
@@ -132,7 +132,7 @@ export default function CoinInfoUp() {
     }
 
     return (
-        <div className="bg-white dark:bg-[#1E2433] h-full lg:h-[60%] mb-1 rounded w-full
+        <div className="bg-secondary dark:bg-secondary-dark h-full lg:h-[60%] mb-1 rounded w-full
             flex flex-col">
             <div className="flex justify-between p-1 pl-4 h-8 border-b-2 border-[#2D3446] cursor-pointer">
                 <div className="flex">

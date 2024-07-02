@@ -54,7 +54,7 @@ export default function Coinlist() {
 
 
     return (
-        <div className="bg-white dark:bg-[#1E2433] ml-2 mr-2 m-1 rounded lg:m-1 lg:min-w-[250px]">
+        <div className="bg-secondary dark:bg-secondary-dark ml-2 mr-2 m-1 rounded lg:m-1 lg:min-w-[250px]">
             <div className="flex flex-col justify-between mb-1">
                 <div className="relative p-3 border-b-2 border-[#2C3240]">
                     <input
@@ -62,7 +62,7 @@ export default function Coinlist() {
                         placeholder="Search"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full h-8 px-4 py-2 pl-5 text-[12px] text-white bg-[#2D3446] border-[1px] border-[#3A4152] rounded-[5px] focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        className="w-full h-8 px-4 py-2 pl-5 text-[12px] dark:text-white dark:bg-[#2D3446] border-[1px] border-[#3A4152] rounded-[5px] focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                     <svg
                         className="absolute left-4 top-[22px] w-[12px] h-[12px] text-gray-300"
@@ -74,7 +74,7 @@ export default function Coinlist() {
                     </svg>
                 </div>
                 <div className="p-3">
-                    <select className="w-full h-8 px-1 text-[14px] bg-[#2D3446] text-white border-[1px] border-[#3A4152] rounded-[5px] focus:outline-none">
+                    <select className="w-full h-8 px-1 text-[14px] dark:bg-[#2D3446] dark:text-white border-[1px] border-[#3A4152] rounded-[5px] focus:outline-none">
                         <option>All Assets</option>
                         <option>Most Active</option>
                     </select>
@@ -82,10 +82,10 @@ export default function Coinlist() {
             </div>
             <div className="">
                 <div className="flex justify-between h-8">
-                    <div className="w-full h-full font-bold text-sm cursor-pointer hover:text-white text-white flex justify-center items-center bg-[#1E2433] border-[#1E2433] border-r-2 border-t-[#66C37B]  border-t-4">INR</div>
-                    <div className="w-full h-full font-bold text-sm cursor-pointer hover:text-white text-[#818898] flex justify-center items-center bg-[#161D2B] border-r-2 border-[#1E2433]">USDT</div>
-                    <div className="w-full h-full font-bold text-sm cursor-pointer hover:text-white text-[#818898] flex justify-center items-center bg-[#161D2B] border-r-2 border-[#1E2433]">WRX</div>
-                    <div className="w-full h-full font-bold text-sm cursor-pointer hover:text-white text-[#818898] flex justify-center items-center bg-[#161D2B]">BTC</div>
+                    <div className="w-full h-full font-bold text-sm cursor-pointer hover:text-black dark:hover:text-white dark:text-white flex justify-center items-center dark:*:bg-[#1E2433] border-[#1E2433] border-r-2 border-t-[#66C37B]  border-t-4">INR</div>
+                    <div className="w-full h-full font-bold text-sm cursor-pointer hover:text-black dark:hover:text-white text-[#818898] flex justify-center items-center dark:bg-[#161D2B] border-r-2 border-[#1E2433]">USDT</div>
+                    <div className="w-full h-full font-bold text-sm cursor-pointer hover:text-black dark:hover:text-white text-[#818898] flex justify-center items-center dark:bg-[#161D2B] border-r-2 border-[#1E2433]">WRX</div>
+                    <div className="w-full h-full font-bold text-sm cursor-pointer hover:text-black dark:hover:text-white text-[#818898] flex justify-center items-center dark:bg-[#161D2B]">BTC</div>
                 </div>
                 <div className="flex justify-between items-center h-5 px-4 border-b-2 border-[#2D3446]">
                     <div className="w-full text-[10px] font-semibold cursor-pointer flex justify-start text-[#66C37B]">Name</div>
@@ -98,7 +98,7 @@ export default function Coinlist() {
                 </div>
                 }
                 {allCoins.map((coin: Coin) => (
-                    <div key={coin._id} onClick={() => handleCoinSelect(coin)} className="h-12 flex justify-between items-center border-b-2 px-4 border-[#2D3446] cursor-pointer hover:bg-[#212f57]">
+                    <div key={coin._id} onClick={() => handleCoinSelect(coin)} className="h-12 flex justify-between items-center border-b-2 px-4 border-[#2D3446] cursor-pointer hover:bg-[#ded7d7] dark:hover:bg-[#212f57]">
                         <div className="flex justify-center items-center">
                             <div className="mr-1 font-serif w-4 h-4 text-sm ">{coin.symbol[0]}</div>
                             <div>
