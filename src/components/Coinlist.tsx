@@ -106,14 +106,14 @@ export default function Coinlist() {
                                     <div className="font-bold text-[12px]">{coin.symbol}</div>
                                     <div className="font-semibold text-[12px] text-[#9EB1BF]">/INR</div>
                                 </div>
-                                {Math.round((((coin.data[coin.data.length - 1].close - coin.data[coin.data.length - 2].close) / 2) * 100) * 100) / 100 < 0 && (
+                                {Math.round(((coin.data[coin.data.length - 1].close - coin.data[coin.data.length - 2].close) / coin.data[coin.data.length - 2].close) * 100) < 0 && (
                                     <div className="flex">
                                         <img src={down} alt="Logo" className='pr-1' />
-                                        <div className="text-red-300 font-bold text-[11px]">{Math.abs(Math.round((((coin.data[coin.data.length - 1].close - coin.data[coin.data.length - 2].close) / 2) * 100) * 100) / 100)}%</div></div>)}
-                                {Math.round((((coin.data[coin.data.length - 1].close - coin.data[coin.data.length - 2].close) / 2) * 100) * 100) / 100 > 0 && (
+                                        <div className="text-red-300 font-bold text-[11px]">{Math.abs(Math.round(((coin.data[coin.data.length - 1].close - coin.data[coin.data.length - 2].close) / coin.data[coin.data.length - 2].close) * 100))}%</div></div>)}
+                                {Math.round(((coin.data[coin.data.length - 1].close - coin.data[coin.data.length - 2].close) / coin.data[coin.data.length - 2].close) * 100) > 0 && (
                                     <div className="flex">
                                         <img src={up} alt="Logo" className='pr-1' />
-                                        <div className="text-green-300 font-bold text-[11px]">{Math.abs(Math.round((((coin.data[coin.data.length - 1].close - coin.data[coin.data.length - 2].close) / 2) * 100) * 100) / 100)}%</div></div>)}
+                                        <div className="text-green-300 font-bold text-[11px]">{Math.abs(Math.round(((coin.data[coin.data.length - 1].close - coin.data[coin.data.length - 2].close) / coin.data[coin.data.length - 2].close) * 100))}%</div></div>)}
 
                             </div>
                         </div>

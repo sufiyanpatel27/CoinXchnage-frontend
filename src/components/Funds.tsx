@@ -36,7 +36,7 @@ export default function Funds() {
 
         const difference = Math.abs(tempCryptoHoldings - tempInvestedValue);
         const average = (tempInvestedValue + tempCryptoHoldings) / 2;
-        const percentageDiff = (difference / average) * 100;
+        const percentageDiff = (difference / tempInvestedValue) * 100;
         const trade = tempInvestedValue < tempCryptoHoldings ? "+" : "-";
         setTrade(trade);
 
@@ -132,7 +132,7 @@ export default function Funds() {
                                         const currentPortfolio = coin.totalBalance * coinPrice;
                                         const difference = Math.abs(currentPortfolio - coin.invested);
                                         const average = (coin.invested + currentPortfolio) / 2;
-                                        const percentageDiff = (difference / average) * 100;
+                                        const percentageDiff = (difference / coin.invested) * 100;
                                         const trade = coin.invested < currentPortfolio ? "profit" : "loss";
                                         const allTimeGains = percentageDiff.toFixed(2);
 
