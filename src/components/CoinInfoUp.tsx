@@ -110,7 +110,7 @@ export default function CoinInfoUp({mode}: {mode: string}) {
                     axios.get(base_url + 'coins/' + currCoin._id)
                         .then((res) => res.data.data[res.data.data.length - 1])
                         .then((res) => { candlestickSeries.update(res) })
-                }, 300000)
+                }, 60000)
                 chart.timeScale().scrollToPosition(5, true)
                 chart.timeScale().applyOptions({ timeVisible: true })
                 return () => clearInterval(interval);
@@ -174,7 +174,7 @@ export default function CoinInfoUp({mode}: {mode: string}) {
                         <div className="text-[11px] text-[#9EB1BF]">LOW</div>
                         <div className="font-semibold text-[11px]">{lowPrice}</div>
                     </div>
-                    <div className='flex gap-4'>
+                    <div className='hidden md:flex md:gap-4'>
                         <div className='border-l-2 cursor-pointer border-[#2D3446] flex justify-center items-center w-6'>
                             <img src={formula} alt="Logo" className='w-[15px]' />
                         </div>

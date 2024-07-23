@@ -43,7 +43,7 @@ export default function HomePage() {
 
     return (
         <div className={`${mode && "dark"}`}>
-            <div className='min-h-screen bg-[#F0F2F5] dark:bg-[#101623] text-white flex flex-col'>
+            <div className='min-h-screen bg-[#F0F2F5] dark:bg-[#101623] text-white flex flex-col overflow-hidden'>
                 <Navbar mode={mode} handleTheme={handleTheme} activeTab="EXCHANGE" />
                 <div className="flex-1 mt-1 text-black dark:text-white flex flex-col lg:flex-row">
                     <Coinlist />
