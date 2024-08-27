@@ -25,7 +25,7 @@ export default function Coinlist() {
         const interval = setInterval(() => {
             axios.get(base_url + 'coins')
             .then((res) => dispatch(setCoins(res.data)))
-        }, 60000);
+        }, 3600000);
         return () => clearInterval(interval);
     }, [])
 
