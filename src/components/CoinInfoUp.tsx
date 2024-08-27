@@ -54,7 +54,7 @@ export default function CoinInfoUp({mode}: {mode: string}) {
                     },
                 });
 
-                function myVisibleTimeRangeChangeHandler(newVisibleTimeRange) {
+                function myVisibleTimeRangeChangeHandler(newVisibleTimeRange: any) {
                     if (newVisibleTimeRange === null) {
                         // handle null
                     }
