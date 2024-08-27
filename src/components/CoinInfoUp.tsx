@@ -54,6 +54,17 @@ export default function CoinInfoUp({mode}: {mode: string}) {
                     },
                 });
 
+                function myVisibleTimeRangeChangeHandler(newVisibleTimeRange) {
+                    if (newVisibleTimeRange === null) {
+                        // handle null
+                    }
+                    console.log(newVisibleTimeRange)
+                
+                    // handle new logical range
+                }
+                
+                chart.timeScale().subscribeVisibleTimeRangeChange(myVisibleTimeRangeChangeHandler);
+
 
                 let symbolName = currCoin.symbol + "/INR"
                 let timeFrame = "1M"
