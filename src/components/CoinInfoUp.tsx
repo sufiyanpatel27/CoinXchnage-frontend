@@ -4,11 +4,15 @@ import maximize from '../assets/maximize.svg'
 import formula from '../assets/formula.svg'
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
+import { useDispatch } from 'react-redux';
+import { setCoins, setCurrCoin } from '../feature/coin/coinSlice';
 import { createChart, ColorType, CrosshairMode } from "lightweight-charts";
 import axios from 'axios';
 
 
-export default function CoinInfoUp({mode}: {mode: string}) {
+export default function CoinInfoUp({ mode }: { mode: string }) {
+
+    const dispatch = useDispatch();
 
     const base_url = import.meta.env.VITE_BASE_URL || "http://localhost:5000/";
 
@@ -16,6 +20,7 @@ export default function CoinInfoUp({mode}: {mode: string}) {
 
     useEffect(() => {
         if (currCoin.name) {
+            console.log(currCoin._id)
             document.title = `CoinXchange - ${currCoin.name}`;
             const chartOptions = {
                 layout: { textColor: '#9EB1BF', background: { type: ColorType.Solid, color: `${mode}` } }, grid: {
@@ -30,7 +35,36 @@ export default function CoinInfoUp({mode}: {mode: string}) {
                 const chart = createChart(body, chartOptions);
                 const candlestickSeries = chart.addCandlestickSeries({ upColor: '#66C37B', downColor: '#F6685E', borderVisible: false, wickUpColor: '#66C37B', wickDownColor: '#F6685E' });
 
-                candlestickSeries.setData(currCoin.data);
+                try {
+                    candlestickSeries.setData(currCoin.data);
+                } catch (err: any) {
+                    body.innerHTML = `
+                    <div class="coin-reset-loading-screen">
+                        Loading Coin Data
+                        <div class="loading-spinner"></div>
+                    </div>
+                    `;
+                    const errorMessage = err.toString();
+                    const index = errorMessage.split("index=")
+                    const ind = index[1].split(",")
+                    const payload = {
+                        index: ind[0]
+                    }
+                    axios.post(base_url + 'deleteCoinData/' + currCoin._id, payload)
+                        .then((response) => {
+                            axios.get(base_url + 'coins')
+                                .then((res) => {
+                                    dispatch(setCoins(res.data))
+                                    dispatch(setCurrCoin(response.data.result))
+                                })
+                                .then(() => {
+                                    console.log("All coins loaded")
+                                    candlestickSeries.setData(currCoin.data);
+                                })
+                                .catch((err) => { console.error('Failed to fetch coins:', err) })
+                        })
+                        .catch(() => console.log("some error happend"))
+                }
 
                 chart.priceScale("right").applyOptions({
                     borderColor: '#818898',
@@ -58,11 +92,11 @@ export default function CoinInfoUp({mode}: {mode: string}) {
                     if (newVisibleTimeRange === null) {
                         // handle null
                     }
-                    console.log(newVisibleTimeRange)
-                
+                    // console.log(newVisibleTimeRange)
+
                     // handle new logical range
                 }
-                
+
                 chart.timeScale().subscribeVisibleTimeRangeChange(myVisibleTimeRangeChangeHandler);
 
 
