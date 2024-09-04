@@ -20,7 +20,7 @@ export default function CoinInfoUp({ mode }: { mode: string }) {
 
     useEffect(() => {
         if (currCoin.name) {
-            console.log(currCoin._id)
+            // console.log(currCoin._id)
             document.title = `CoinXchange - ${currCoin.name}`;
             const chartOptions = {
                 layout: { textColor: '#9EB1BF', background: { type: ColorType.Solid, color: `${mode}` } }, grid: {
@@ -45,6 +45,7 @@ export default function CoinInfoUp({ mode }: { mode: string }) {
                         <div class="loading-spinner"></div>
                     </div>
                     `;
+                    console.log("handeling coin reset error now ...")
                     const errorMessage = err.toString();
                     const index = errorMessage.split("index=")
                     const ind = index[1].split(",")
@@ -152,11 +153,11 @@ export default function CoinInfoUp({ mode }: { mode: string }) {
 
 
                 const interval = setInterval(async () => {
-                    console.log(currCoin._id)
+                    // console.log(currCoin._id)
                     axios.get(base_url + 'coins/' + currCoin._id)
                         .then((res) => res.data.data[res.data.data.length - 1])
                         .then((res) => { candlestickSeries.update(res) })
-                }, 3600000)
+                }, 60000)
                 chart.timeScale().scrollToPosition(5, true)
                 chart.timeScale().applyOptions({ timeVisible: true })
                 return () => clearInterval(interval);
