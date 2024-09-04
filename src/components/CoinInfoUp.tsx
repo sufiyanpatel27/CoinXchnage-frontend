@@ -38,6 +38,7 @@ export default function CoinInfoUp({ mode }: { mode: string }) {
                 try {
                     candlestickSeries.setData(currCoin.data);
                 } catch (err: any) {
+                    console.log(err)
                     body.innerHTML = `
                     <div class="coin-reset-loading-screen">
                         Loading Coin Data

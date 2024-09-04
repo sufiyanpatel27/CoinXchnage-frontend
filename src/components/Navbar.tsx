@@ -45,9 +45,9 @@ export default function Navbar({ mode, handleTheme, activeTab }: { mode: boolean
                 <img src={logo} alt="Logo" className='w-24 md:w-36 cursor-pointer' onClick={() => navigate('/')} />
                 <div className='hidden h-full md:flex items-center gap-4 ml-4'>
                     <div className={`font-bold cursor-pointer hover:bg-gray-800 px-4 h-full flex justify-center items-center ${activeTab === "EXCHANGE" ? 'dark:bg-[#1F2531] border-b-[3px] border-[#FAED9B]' : ''}`}
-                        onClick={() => navigate('/exchange')}>EXCHANGE</div>
+                        onClick={() => navigate('/')}>EXCHANGE</div>
                     <div className={`font-bold cursor-pointer hover:bg-gray-800 px-4 h-full flex justify-center items-center ${activeTab === "P2P" ? 'dark:bg-[#1F2531] border-b-[3px] border-[#FAED9B]' : ''}`}
-                        onClick={() => navigate('/exchange')}>P2P</div>
+                        onClick={() => navigate('/')}>P2P</div>
                     {!loggedIn &&
                         <div className={`font-bold cursor-pointer hover:bg-gray-800 px-4 h-full flex justify-center items-center ${activeTab === "FUNDS" ? 'dark:bg-[#1F2531] border-b-[3px] border-[#FAED9B]' : ''}`}
                             onClick={() => navigate('/funds')}>FUNDS</div>
@@ -55,7 +55,7 @@ export default function Navbar({ mode, handleTheme, activeTab }: { mode: boolean
                 </div>
             </div>
             <div className='hidden h-full md:flex items-center gap-6'>
-                <div className='font-semibold cursor-pointer hover:bg-gray-800 px-4 h-full flex items-center' onClick={() => navigate('/exchange')}>INVITE & EARN</div>
+                <div className='font-semibold cursor-pointer hover:bg-gray-800 px-4 h-full flex items-center' onClick={() => navigate('/')}>INVITE & EARN</div>
                 {!loggedIn &&
                     <div className='relative h-full'>
                         <div className='font-semibold h-full cursor-pointer hover:bg-gray-800 flex w-10 justify-center'
@@ -101,15 +101,15 @@ export default function Navbar({ mode, handleTheme, activeTab }: { mode: boolean
                 <div className='md:hidden flex flex-col bg-[#3067F0] dark:bg-[#2D3446] absolute top-[45px] left-0 right-0 z-10'>
                     <div className='flex flex-col items-center'>
                         <div className='font-bold cursor-pointer hover:bg-gray-800 px-4 py-2 w-full text-center'
-                            onClick={() => { navigate('/exchange'); setIsMenuOpen(false); }}>EXCHANGE</div>
+                            onClick={() => { navigate('/'); setIsMenuOpen(false); }}>EXCHANGE</div>
                         <div className='font-bold cursor-pointer hover:bg-gray-800 px-4 py-2 w-full text-center'
-                            onClick={() => { navigate('/exchange'); setIsMenuOpen(false); }}>P2P</div>
+                            onClick={() => { navigate('/'); setIsMenuOpen(false); }}>P2P</div>
                         {!loggedIn &&
                             <div className='font-bold cursor-pointer hover:bg-gray-800 px-4 py-2 w-full text-center'
                                 onClick={() => { navigate('/funds'); setIsMenuOpen(false); }}>FUNDS</div>
                         }
                         <div className='font-semibold cursor-pointer hover:bg-gray-800 px-4 py-2 w-full text-center'
-                            onClick={() => { navigate('/exchange'); setIsMenuOpen(false); }}>INVITE & EARN</div>
+                            onClick={() => { navigate('/'); setIsMenuOpen(false); }}>INVITE & EARN</div>
                         {!loggedIn &&
                             <div className='font-semibold cursor-pointer hover:bg-gray-800 px-4 py-2 w-full text-center flex items-center justify-center'
                                 onClick={() => setUserSettings(!userSettings)}>

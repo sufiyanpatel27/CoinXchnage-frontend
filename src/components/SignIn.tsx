@@ -23,7 +23,7 @@ const SignIn = () => {
     }
 
     signIn(email, password)
-    .then(() => navigate("/exchange"))
+    .then(() => navigate("/"))
     .catch(() => alert("Invalid email or password"))
   };
 
