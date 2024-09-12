@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import star from '../assets/star.svg'
 import maximize from '../assets/maximize.svg'
 import formula from '../assets/formula.svg'
