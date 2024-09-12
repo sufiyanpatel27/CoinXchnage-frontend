@@ -206,15 +206,15 @@ export default function CoinInfoUp({ mode }: { mode: string }) {
 
 
 
-                const interval = setInterval(async () => {
-                    // console.log(currCoin._id)
-                    axios.get(base_url + 'singlecoins/' + currCoin._id)
-                        .then((res) => res.data.data[res.data.data.length - 1])
-                        .then((res) => { console.log(res); candlestickSeries.update(res) })
-                }, 60000)
+                // const interval = setInterval(async () => {
+                //     // console.log(currCoin._id)
+                //     axios.get(base_url + 'singlecoins/' + currCoin._id)
+                //         .then((res) => res.data.data[res.data.data.length - 1])
+                //         .then((res) => { console.log(res); candlestickSeries.update(res) })
+                // }, 60000)
                 chart.timeScale().scrollToPosition(5, true)
                 chart.timeScale().applyOptions({ timeVisible: true })
-                return () => clearInterval(interval);
+                // return () => clearInterval(interval);
 
 
             }
