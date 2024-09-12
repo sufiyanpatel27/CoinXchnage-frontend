@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import star from '../assets/star.svg'
 import maximize from '../assets/maximize.svg'
 import formula from '../assets/formula.svg'
@@ -13,10 +13,10 @@ import axios from 'axios';
 export default function CoinInfoUp({ mode }: { mode: string }) {
 
     const dispatch = useDispatch();
+    const allCoins = useSelector((state: RootState) => state.coin.allCoins); // Assuming allCoins is in your Redux store
+    const currCoin: any = useSelector((state: RootState) => state.coin.currCoin);
 
     const base_url = import.meta.env.VITE_BASE_URL || "http://localhost:5000/";
-
-    const currCoin: any = useSelector((state: RootState) => state.coin.currCoin);
 
     useEffect(() => {
         if (currCoin.name) {
@@ -90,14 +90,68 @@ export default function CoinInfoUp({ mode }: { mode: string }) {
                     },
                 });
 
+                
+
+                let isFetching = false; // Flag to check if API call is in progress
+
+                let updatedData = currCoin.data;
+
                 function myVisibleTimeRangeChangeHandler(newVisibleTimeRange: any) {
                     if (newVisibleTimeRange === null) {
                         // handle null
+                        return;
                     }
-                    // console.log(newVisibleTimeRange)
 
-                    // handle new logical range
+                    // Check if an API call is in progress
+                    if (isFetching) {
+                        return; // Prevent making a new API call if one is already in progress
+                    }
+
+                    if (newVisibleTimeRange.from <= currCoin.data[0].time) {
+                        // console.log(newVisibleTimeRange.from);
+
+                        // Set flag to indicate API call is in progress
+                        isFetching = true;
+
+                        // Fetch the additional data for the current coin
+                        axios
+                            .get(`${base_url}coins/${currCoin._id}?time=${newVisibleTimeRange.from}`)
+                            .then((res) => {
+                                const fetchedData = res.data;
+
+                                const updatedCoins = allCoins.map((coin: any) => {
+                                    if (coin._id === currCoin._id) {
+                                        return {
+                                            ...coin,
+                                            data: [...fetchedData, ...coin.data],
+                                        };
+                                    }
+                                    return coin;
+                                });
+
+                                dispatch(setCoins(updatedCoins));
+
+                                
+
+                                updatedData = [...fetchedData, ...updatedData];
+                                candlestickSeries.setData(updatedData);
+
+
+                                console.log("coins updated")
+                            })
+                            .catch((error) => {
+                                console.error("Error fetching data:", error);
+                            })
+                            .finally(() => {
+                                // Reset flag and set timeout
+                                setTimeout(() => {
+                                    isFetching = false;
+                                }, 5000); // 5 seconds
+                            });
+                    }
                 }
+
+
 
                 chart.timeScale().subscribeVisibleTimeRangeChange(myVisibleTimeRangeChangeHandler);
 
