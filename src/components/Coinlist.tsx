@@ -15,20 +15,51 @@ export default function Coinlist() {
     const dispatch = useDispatch<AppDispatch>();
     const allCoins = useSelector((state: RootState) => state.coin.allCoins);
 
-    useEffect(() => {
+    const [latestData, setlatestData] = useState(true)
+    const [currCoin, setcurrCoin] = useState({});
+
+    const pollForCompletion = () => {
+        const interval = setInterval(async () => {
+            axios.get(base_url + 'coins')
+                .then((res) => {
+                    if (res.data.isDataRetrieved) {
+                        clearInterval(interval);
+                        fetchData();
+                        setlatestData(true)
+                        console.log("all coins loaded and reset data");
+                    }
+                });
+        }, 10000); // Poll every 10 seconds
+    };
+
+    const fetchData = async () => {
         console.log("loading coins")
         axios.get(base_url + 'coins')
-            .then((res) => {dispatch(setCoins(res.data))})
-            .then(() => console.log("All coins loaded "))
+            .then((res) => {
+                setlatestData(res.data.isDataRetrieved);
+                if (!res.data.isDataRetrieved) {
+                    pollForCompletion();  // Poll for data generation completion
+                }
+                dispatch(setCoins(res.data.cleanedCoinsData))
+                console.log(currCoin)
+                if (currCoin != null) {
+                    dispatch(setCurrCoin(currCoin))
+                }
+            })
+            .then(() => console.log("All coins loaded"))
             .catch((err) => { console.error('Failed to fetch coins:', err) })
 
         const interval = setInterval(() => {
             axios.get(base_url + 'coins')
-            .then((res) => dispatch(setCoins(res.data)))
-            .then(() => console.log("All coins loaded again after 60 seconds"))
-            .catch((err) => { console.error('Failed to fetch coins:', err) })
+                .then((res) => dispatch(setCoins(res.data.cleanedCoinsData)))
+                .then(() => console.log("All coins loaded again after 60 seconds"))
+                .catch((err) => { console.error('Failed to fetch coins:', err) })
         }, 60000);
         return () => clearInterval(interval);
+    }
+
+    useEffect(() => {
+        fetchData();
     }, [])
 
 
@@ -48,6 +79,7 @@ export default function Coinlist() {
     }
 
     const handleCoinSelect = (coin: Coin) => {
+        setcurrCoin(coin)
         dispatch(setCurrCoin(coin))
     }
 
@@ -94,10 +126,13 @@ export default function Coinlist() {
                     <div className="w-full text-[10px] font-semibold cursor-pointer text-[#9EB1BF] flex justify-start">Vol</div>
                     <div className="w-full text-[10px] font-semibold cursor-pointer text-[#9EB1BF] flex justify-end">Change</div>
                 </div>
+
+
+
                 {allCoins.length === 0 &&
-                <div className="w-full pt-12 lg:pt-52 flex justify-center items-center">
-                    <div className="loading-spinner"></div>
-                </div>
+                    <div className="w-full pt-12 lg:pt-52 flex justify-center items-center">
+                        <div className="loading-spinner"></div>
+                    </div>
                 }
                 {allCoins.map((coin: Coin) => (
                     <div key={coin._id} onClick={() => handleCoinSelect(coin)} className="h-12 flex justify-between items-center border-b-2 px-4 border-[#2D3446] cursor-pointer hover:bg-[#ded7d7] dark:hover:bg-[#212f57]">
@@ -122,6 +157,11 @@ export default function Coinlist() {
                         <div className="font-bold text-[12px]">₹ {coin.data[coin.data.length - 1].close}</div>
                     </div>
                 ))}
+                {latestData == false &&
+                    <div className="w-full lg:pt-5 flex justify-center items-center gap-2">
+                        Loading Latest Data <div className="loading-spinner"></div>
+                    </div>
+                }
             </div>
         </div>
     )

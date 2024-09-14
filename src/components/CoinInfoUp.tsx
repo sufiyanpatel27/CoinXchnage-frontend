@@ -5,7 +5,7 @@ import formula from '../assets/formula.svg'
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 import { useDispatch } from 'react-redux';
-import { setCoins, setCurrCoin } from '../feature/coin/coinSlice';
+import { setCoins } from '../feature/coin/coinSlice';
 import { createChart, ColorType, CrosshairMode } from "lightweight-charts";
 import axios from 'axios';
 
@@ -35,38 +35,9 @@ export default function CoinInfoUp({ mode }: { mode: string }) {
                 const chart = createChart(body, chartOptions);
                 const candlestickSeries = chart.addCandlestickSeries({ upColor: '#66C37B', downColor: '#F6685E', borderVisible: false, wickUpColor: '#66C37B', wickDownColor: '#F6685E' });
 
-                try {
-                    candlestickSeries.setData(currCoin.data);
-                } catch (err: any) {
-                    console.log(err)
-                    body.innerHTML = `
-                    <div class="coin-reset-loading-screen">
-                        Loading Coin Data
-                        <div class="loading-spinner"></div>
-                    </div>
-                    `;
-                    console.log("handeling coin reset error now ...")
-                    const errorMessage = err.toString();
-                    const index = errorMessage.split("index=")
-                    const ind = index[1].split(",")
-                    const payload = {
-                        index: ind[0]
-                    }
-                    axios.post(base_url + 'deleteCoinData/' + currCoin._id, payload)
-                        .then((response) => {
-                            axios.get(base_url + 'coins')
-                                .then((res) => {
-                                    dispatch(setCoins(res.data))
-                                    dispatch(setCurrCoin(response.data.result))
-                                })
-                                .then(() => {
-                                    console.log("All coins loaded")
-                                    candlestickSeries.setData(currCoin.data);
-                                })
-                                .catch((err) => { console.error('Failed to fetch coins:', err) })
-                        })
-                        .catch(() => console.log("some error happend"))
-                }
+
+                candlestickSeries.setData(currCoin.data);
+
 
                 chart.priceScale("right").applyOptions({
                     borderColor: '#818898',
