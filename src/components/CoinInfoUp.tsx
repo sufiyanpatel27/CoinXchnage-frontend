@@ -16,11 +16,11 @@ export default function CoinInfoUp({ mode }: { mode: string }) {
     const allCoins = useSelector((state: RootState) => state.coin.allCoins); // Assuming allCoins is in your Redux store
     const currCoin: any = useSelector((state: RootState) => state.coin.currCoin);
 
+
     const base_url = import.meta.env.VITE_BASE_URL || "http://localhost:5000/";
 
     useEffect(() => {
         if (currCoin.name) {
-            // console.log(currCoin._id)
             document.title = `CoinXchange - ${currCoin.name}`;
             const chartOptions = {
                 layout: { textColor: '#9EB1BF', background: { type: ColorType.Solid, color: `${mode}` } }, grid: {
@@ -176,14 +176,21 @@ export default function CoinInfoUp({ mode }: { mode: string }) {
                 });
 
 
-
+                // code block for live data update in the Graph
                 const interval = setInterval(async () => {
                     axios.get(base_url + 'singlecoins/' + currCoin._id)
                         .then((res) => res.data[0].data[0])
-                        .then((res) => { console.log("graph updated after 1 minute"); candlestickSeries.update(res) })
+                        .then((res) => {
+                            candlestickSeries.update(res);
+                            console.log("graph updated after 1 minute");
+                        })
                 }, 60000)
+
+
                 chart.timeScale().scrollToPosition(5, true)
                 chart.timeScale().applyOptions({ timeVisible: true })
+
+
                 return () => clearInterval(interval);
 
 

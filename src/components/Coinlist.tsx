@@ -16,7 +16,7 @@ export default function Coinlist() {
     const allCoins = useSelector((state: RootState) => state.coin.allCoins);
 
     const [latestData, setlatestData] = useState(true)
-    const [currCoin, setcurrCoin] = useState({});
+    const [selectedCoinId, setselectedCoinId] = useState(0)
 
     const pollForCompletion = () => {
         const interval = setInterval(async () => {
@@ -41,10 +41,15 @@ export default function Coinlist() {
                     pollForCompletion();  // Poll for data generation completion
                 }
                 dispatch(setCoins(res.data.cleanedCoinsData))
-                console.log(currCoin)
-                if (currCoin != null) {
-                    dispatch(setCurrCoin(currCoin))
+                if (selectedCoinId) {
+                    const coin = res.data.cleanedCoinsData.map((coin: any) => {
+                        if (coin._id === selectedCoinId) {
+                            return coin;
+                        }
+                    });
+                    dispatch(setCurrCoin(coin[0]));
                 }
+
             })
             .then(() => console.log("All coins loaded"))
             .catch((err) => { console.error('Failed to fetch coins:', err) })
@@ -60,7 +65,7 @@ export default function Coinlist() {
 
     useEffect(() => {
         fetchData();
-    }, [])
+    }, [selectedCoinId])
 
 
     const [searchTerm, setSearchTerm] = useState('');
@@ -79,8 +84,8 @@ export default function Coinlist() {
     }
 
     const handleCoinSelect = (coin: Coin) => {
-        setcurrCoin(coin)
-        dispatch(setCurrCoin(coin))
+        setselectedCoinId(coin._id)
+        // dispatch(setCurrCoin(coin))
     }
 
 
