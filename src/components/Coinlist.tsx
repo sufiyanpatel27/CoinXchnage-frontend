@@ -65,7 +65,7 @@ export default function Coinlist() {
 
     useEffect(() => {
         fetchData();
-    }, [selectedCoinId])
+    }, [])
 
 
     const [searchTerm, setSearchTerm] = useState('');
@@ -85,7 +85,7 @@ export default function Coinlist() {
 
     const handleCoinSelect = (coin: Coin) => {
         setselectedCoinId(coin._id)
-        // dispatch(setCurrCoin(coin))
+        dispatch(setCurrCoin(coin))
     }
 
 
