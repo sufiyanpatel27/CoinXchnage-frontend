@@ -15,7 +15,7 @@ export default function Coinlist() {
     const dispatch = useDispatch<AppDispatch>();
     const allCoins = useSelector((state: RootState) => state.coin.allCoins);
 
-    const [latestData, setlatestData] = useState(true)
+    // const [latestData, setlatestData] = useState(true)
     const [selectedCoinId, setselectedCoinId] = useState(0)
 
     const pollForCompletion = () => {
@@ -25,7 +25,7 @@ export default function Coinlist() {
                     if (res.data.isDataRetrieved) {
                         clearInterval(interval);
                         fetchData();
-                        setlatestData(true)
+                        // setlatestData(true)
                         console.log("all coins loaded and reset data");
                     }
                 });
@@ -36,7 +36,7 @@ export default function Coinlist() {
         console.log("loading coins")
         axios.get(base_url + 'coins')
             .then((res) => {
-                setlatestData(res.data.isDataRetrieved);
+                // setlatestData(res.data.isDataRetrieved);
                 if (!res.data.isDataRetrieved) {
                     pollForCompletion();  // Poll for data generation completion
                 }
