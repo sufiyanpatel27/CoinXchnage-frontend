@@ -162,11 +162,12 @@ export default function Coinlist() {
                         <div className="font-bold text-[12px]">₹ {coin.data[coin.data.length - 1].close}</div>
                     </div>
                 ))}
-                {latestData == false &&
+                {/* removed the loading spinner for latest data loading temporarily due to a bug */}
+                {/* {latestData == false &&
                     <div className="w-full lg:pt-5 flex justify-center items-center gap-2">
                         Loading Latest Data <div className="loading-spinner"></div>
                     </div>
-                }
+                } */}
             </div>
         </div>
     )
